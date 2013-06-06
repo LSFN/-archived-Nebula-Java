@@ -1,4 +1,4 @@
-package nebula;
+package org.lsfn.nebula;
 
 public class Nebula {
 
