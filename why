@@ -1,0 +1,3 @@
+protoc -I. --java_out=src/ proto_src/*.proto
+javac -classpath lib/*.jar -d build -sourcepath src src/org/lsfn/nebula/*.java
+jar cfm nebula.jar Manifest.txt lib -C build .
