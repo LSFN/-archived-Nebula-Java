@@ -63,7 +63,6 @@ public class Nebula {
             try {
                 starshipServer.join();
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
