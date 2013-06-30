@@ -20,6 +20,11 @@ public final class FF {
     boolean hasRcon();
     org.lsfn.nebula.FF.FFup.RCon getRcon();
     org.lsfn.nebula.FF.FFup.RConOrBuilder getRconOrBuilder();
+    
+    // optional .FFup.Piloting piloting = 3;
+    boolean hasPiloting();
+    org.lsfn.nebula.FF.FFup.Piloting getPiloting();
+    org.lsfn.nebula.FF.FFup.PilotingOrBuilder getPilotingOrBuilder();
   }
   public static final class FFup extends
       com.google.protobuf.GeneratedMessage
@@ -56,10 +61,9 @@ public final class FF {
       boolean hasReadyState();
       boolean getReadyState();
       
-      // optional .FFup.Lobby.Connection connection = 2;
-      boolean hasConnection();
-      org.lsfn.nebula.FF.FFup.Lobby.Connection getConnection();
-      org.lsfn.nebula.FF.FFup.Lobby.ConnectionOrBuilder getConnectionOrBuilder();
+      // optional string shipName = 2;
+      boolean hasShipName();
+      String getShipName();
     }
     public static final class Lobby extends
         com.google.protobuf.GeneratedMessage
@@ -89,573 +93,6 @@ public final class FF {
         return org.lsfn.nebula.FF.internal_static_FFup_Lobby_fieldAccessorTable;
       }
       
-      public enum ConnectionCommand
-          implements com.google.protobuf.ProtocolMessageEnum {
-        CONNECT(0, 0),
-        DISCONNECT(1, 1),
-        ;
-        
-        public static final int CONNECT_VALUE = 0;
-        public static final int DISCONNECT_VALUE = 1;
-        
-        
-        public final int getNumber() { return value; }
-        
-        public static ConnectionCommand valueOf(int value) {
-          switch (value) {
-            case 0: return CONNECT;
-            case 1: return DISCONNECT;
-            default: return null;
-          }
-        }
-        
-        public static com.google.protobuf.Internal.EnumLiteMap<ConnectionCommand>
-            internalGetValueMap() {
-          return internalValueMap;
-        }
-        private static com.google.protobuf.Internal.EnumLiteMap<ConnectionCommand>
-            internalValueMap =
-              new com.google.protobuf.Internal.EnumLiteMap<ConnectionCommand>() {
-                public ConnectionCommand findValueByNumber(int number) {
-                  return ConnectionCommand.valueOf(number);
-                }
-              };
-        
-        public final com.google.protobuf.Descriptors.EnumValueDescriptor
-            getValueDescriptor() {
-          return getDescriptor().getValues().get(index);
-        }
-        public final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptorForType() {
-          return getDescriptor();
-        }
-        public static final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptor() {
-          return org.lsfn.nebula.FF.FFup.Lobby.getDescriptor().getEnumTypes().get(0);
-        }
-        
-        private static final ConnectionCommand[] VALUES = {
-          CONNECT, DISCONNECT, 
-        };
-        
-        public static ConnectionCommand valueOf(
-            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-          if (desc.getType() != getDescriptor()) {
-            throw new java.lang.IllegalArgumentException(
-              "EnumValueDescriptor is not for this type.");
-          }
-          return VALUES[desc.getIndex()];
-        }
-        
-        private final int index;
-        private final int value;
-        
-        private ConnectionCommand(int index, int value) {
-          this.index = index;
-          this.value = value;
-        }
-        
-        // @@protoc_insertion_point(enum_scope:FFup.Lobby.ConnectionCommand)
-      }
-      
-      public interface ConnectionOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
-        
-        // optional .FFup.Lobby.ConnectionCommand connectionCommand = 1;
-        boolean hasConnectionCommand();
-        org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand getConnectionCommand();
-        
-        // optional string host = 2;
-        boolean hasHost();
-        String getHost();
-        
-        // optional uint32 port = 3;
-        boolean hasPort();
-        int getPort();
-      }
-      public static final class Connection extends
-          com.google.protobuf.GeneratedMessage
-          implements ConnectionOrBuilder {
-        // Use Connection.newBuilder() to construct.
-        private Connection(Builder builder) {
-          super(builder);
-        }
-        private Connection(boolean noInit) {}
-        
-        private static final Connection defaultInstance;
-        public static Connection getDefaultInstance() {
-          return defaultInstance;
-        }
-        
-        public Connection getDefaultInstanceForType() {
-          return defaultInstance;
-        }
-        
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return org.lsfn.nebula.FF.internal_static_FFup_Lobby_Connection_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return org.lsfn.nebula.FF.internal_static_FFup_Lobby_Connection_fieldAccessorTable;
-        }
-        
-        private int bitField0_;
-        // optional .FFup.Lobby.ConnectionCommand connectionCommand = 1;
-        public static final int CONNECTIONCOMMAND_FIELD_NUMBER = 1;
-        private org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand connectionCommand_;
-        public boolean hasConnectionCommand() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        public org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand getConnectionCommand() {
-          return connectionCommand_;
-        }
-        
-        // optional string host = 2;
-        public static final int HOST_FIELD_NUMBER = 2;
-        private java.lang.Object host_;
-        public boolean hasHost() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        public String getHost() {
-          java.lang.Object ref = host_;
-          if (ref instanceof String) {
-            return (String) ref;
-          } else {
-            com.google.protobuf.ByteString bs = 
-                (com.google.protobuf.ByteString) ref;
-            String s = bs.toStringUtf8();
-            if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-              host_ = s;
-            }
-            return s;
-          }
-        }
-        private com.google.protobuf.ByteString getHostBytes() {
-          java.lang.Object ref = host_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-            host_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        
-        // optional uint32 port = 3;
-        public static final int PORT_FIELD_NUMBER = 3;
-        private int port_;
-        public boolean hasPort() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
-        }
-        public int getPort() {
-          return port_;
-        }
-        
-        private void initFields() {
-          connectionCommand_ = org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand.CONNECT;
-          host_ = "";
-          port_ = 0;
-        }
-        private byte memoizedIsInitialized = -1;
-        public final boolean isInitialized() {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized != -1) return isInitialized == 1;
-          
-          memoizedIsInitialized = 1;
-          return true;
-        }
-        
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                            throws java.io.IOException {
-          getSerializedSize();
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            output.writeEnum(1, connectionCommand_.getNumber());
-          }
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            output.writeBytes(2, getHostBytes());
-          }
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            output.writeUInt32(3, port_);
-          }
-          getUnknownFields().writeTo(output);
-        }
-        
-        private int memoizedSerializedSize = -1;
-        public int getSerializedSize() {
-          int size = memoizedSerializedSize;
-          if (size != -1) return size;
-        
-          size = 0;
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeEnumSize(1, connectionCommand_.getNumber());
-          }
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeBytesSize(2, getHostBytes());
-          }
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeUInt32Size(3, port_);
-          }
-          size += getUnknownFields().getSerializedSize();
-          memoizedSerializedSize = size;
-          return size;
-        }
-        
-        private static final long serialVersionUID = 0L;
-        @java.lang.Override
-        protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-          return super.writeReplace();
-        }
-        
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static org.lsfn.nebula.FF.FFup.Lobby.Connection parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        
-        public static Builder newBuilder() { return Builder.create(); }
-        public Builder newBuilderForType() { return newBuilder(); }
-        public static Builder newBuilder(org.lsfn.nebula.FF.FFup.Lobby.Connection prototype) {
-          return newBuilder().mergeFrom(prototype);
-        }
-        public Builder toBuilder() { return newBuilder(this); }
-        
-        @java.lang.Override
-        protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          Builder builder = new Builder(parent);
-          return builder;
-        }
-        public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-           implements org.lsfn.nebula.FF.FFup.Lobby.ConnectionOrBuilder {
-          public static final com.google.protobuf.Descriptors.Descriptor
-              getDescriptor() {
-            return org.lsfn.nebula.FF.internal_static_FFup_Lobby_Connection_descriptor;
-          }
-          
-          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-              internalGetFieldAccessorTable() {
-            return org.lsfn.nebula.FF.internal_static_FFup_Lobby_Connection_fieldAccessorTable;
-          }
-          
-          // Construct using org.lsfn.nebula.FF.FFup.Lobby.Connection.newBuilder()
-          private Builder() {
-            maybeForceBuilderInitialization();
-          }
-          
-          private Builder(BuilderParent parent) {
-            super(parent);
-            maybeForceBuilderInitialization();
-          }
-          private void maybeForceBuilderInitialization() {
-            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            }
-          }
-          private static Builder create() {
-            return new Builder();
-          }
-          
-          public Builder clear() {
-            super.clear();
-            connectionCommand_ = org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand.CONNECT;
-            bitField0_ = (bitField0_ & ~0x00000001);
-            host_ = "";
-            bitField0_ = (bitField0_ & ~0x00000002);
-            port_ = 0;
-            bitField0_ = (bitField0_ & ~0x00000004);
-            return this;
-          }
-          
-          public Builder clone() {
-            return create().mergeFrom(buildPartial());
-          }
-          
-          public com.google.protobuf.Descriptors.Descriptor
-              getDescriptorForType() {
-            return org.lsfn.nebula.FF.FFup.Lobby.Connection.getDescriptor();
-          }
-          
-          public org.lsfn.nebula.FF.FFup.Lobby.Connection getDefaultInstanceForType() {
-            return org.lsfn.nebula.FF.FFup.Lobby.Connection.getDefaultInstance();
-          }
-          
-          public org.lsfn.nebula.FF.FFup.Lobby.Connection build() {
-            org.lsfn.nebula.FF.FFup.Lobby.Connection result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(result);
-            }
-            return result;
-          }
-          
-          private org.lsfn.nebula.FF.FFup.Lobby.Connection buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-            org.lsfn.nebula.FF.FFup.Lobby.Connection result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(
-                result).asInvalidProtocolBufferException();
-            }
-            return result;
-          }
-          
-          public org.lsfn.nebula.FF.FFup.Lobby.Connection buildPartial() {
-            org.lsfn.nebula.FF.FFup.Lobby.Connection result = new org.lsfn.nebula.FF.FFup.Lobby.Connection(this);
-            int from_bitField0_ = bitField0_;
-            int to_bitField0_ = 0;
-            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-              to_bitField0_ |= 0x00000001;
-            }
-            result.connectionCommand_ = connectionCommand_;
-            if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-              to_bitField0_ |= 0x00000002;
-            }
-            result.host_ = host_;
-            if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-              to_bitField0_ |= 0x00000004;
-            }
-            result.port_ = port_;
-            result.bitField0_ = to_bitField0_;
-            onBuilt();
-            return result;
-          }
-          
-          public Builder mergeFrom(com.google.protobuf.Message other) {
-            if (other instanceof org.lsfn.nebula.FF.FFup.Lobby.Connection) {
-              return mergeFrom((org.lsfn.nebula.FF.FFup.Lobby.Connection)other);
-            } else {
-              super.mergeFrom(other);
-              return this;
-            }
-          }
-          
-          public Builder mergeFrom(org.lsfn.nebula.FF.FFup.Lobby.Connection other) {
-            if (other == org.lsfn.nebula.FF.FFup.Lobby.Connection.getDefaultInstance()) return this;
-            if (other.hasConnectionCommand()) {
-              setConnectionCommand(other.getConnectionCommand());
-            }
-            if (other.hasHost()) {
-              setHost(other.getHost());
-            }
-            if (other.hasPort()) {
-              setPort(other.getPort());
-            }
-            this.mergeUnknownFields(other.getUnknownFields());
-            return this;
-          }
-          
-          public final boolean isInitialized() {
-            return true;
-          }
-          
-          public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-              com.google.protobuf.UnknownFieldSet.newBuilder(
-                this.getUnknownFields());
-            while (true) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                default: {
-                  if (!parseUnknownField(input, unknownFields,
-                                         extensionRegistry, tag)) {
-                    this.setUnknownFields(unknownFields.build());
-                    onChanged();
-                    return this;
-                  }
-                  break;
-                }
-                case 8: {
-                  int rawValue = input.readEnum();
-                  org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand value = org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand.valueOf(rawValue);
-                  if (value == null) {
-                    unknownFields.mergeVarintField(1, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000001;
-                    connectionCommand_ = value;
-                  }
-                  break;
-                }
-                case 18: {
-                  bitField0_ |= 0x00000002;
-                  host_ = input.readBytes();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  port_ = input.readUInt32();
-                  break;
-                }
-              }
-            }
-          }
-          
-          private int bitField0_;
-          
-          // optional .FFup.Lobby.ConnectionCommand connectionCommand = 1;
-          private org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand connectionCommand_ = org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand.CONNECT;
-          public boolean hasConnectionCommand() {
-            return ((bitField0_ & 0x00000001) == 0x00000001);
-          }
-          public org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand getConnectionCommand() {
-            return connectionCommand_;
-          }
-          public Builder setConnectionCommand(org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand value) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            bitField0_ |= 0x00000001;
-            connectionCommand_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearConnectionCommand() {
-            bitField0_ = (bitField0_ & ~0x00000001);
-            connectionCommand_ = org.lsfn.nebula.FF.FFup.Lobby.ConnectionCommand.CONNECT;
-            onChanged();
-            return this;
-          }
-          
-          // optional string host = 2;
-          private java.lang.Object host_ = "";
-          public boolean hasHost() {
-            return ((bitField0_ & 0x00000002) == 0x00000002);
-          }
-          public String getHost() {
-            java.lang.Object ref = host_;
-            if (!(ref instanceof String)) {
-              String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-              host_ = s;
-              return s;
-            } else {
-              return (String) ref;
-            }
-          }
-          public Builder setHost(String value) {
-            if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-            host_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearHost() {
-            bitField0_ = (bitField0_ & ~0x00000002);
-            host_ = getDefaultInstance().getHost();
-            onChanged();
-            return this;
-          }
-          void setHost(com.google.protobuf.ByteString value) {
-            bitField0_ |= 0x00000002;
-            host_ = value;
-            onChanged();
-          }
-          
-          // optional uint32 port = 3;
-          private int port_ ;
-          public boolean hasPort() {
-            return ((bitField0_ & 0x00000004) == 0x00000004);
-          }
-          public int getPort() {
-            return port_;
-          }
-          public Builder setPort(int value) {
-            bitField0_ |= 0x00000004;
-            port_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearPort() {
-            bitField0_ = (bitField0_ & ~0x00000004);
-            port_ = 0;
-            onChanged();
-            return this;
-          }
-          
-          // @@protoc_insertion_point(builder_scope:FFup.Lobby.Connection)
-        }
-        
-        static {
-          defaultInstance = new Connection(true);
-          defaultInstance.initFields();
-        }
-        
-        // @@protoc_insertion_point(class_scope:FFup.Lobby.Connection)
-      }
-      
       private int bitField0_;
       // optional bool readyState = 1;
       public static final int READYSTATE_FIELD_NUMBER = 1;
@@ -667,22 +104,41 @@ public final class FF {
         return readyState_;
       }
       
-      // optional .FFup.Lobby.Connection connection = 2;
-      public static final int CONNECTION_FIELD_NUMBER = 2;
-      private org.lsfn.nebula.FF.FFup.Lobby.Connection connection_;
-      public boolean hasConnection() {
+      // optional string shipName = 2;
+      public static final int SHIPNAME_FIELD_NUMBER = 2;
+      private java.lang.Object shipName_;
+      public boolean hasShipName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public org.lsfn.nebula.FF.FFup.Lobby.Connection getConnection() {
-        return connection_;
+      public String getShipName() {
+        java.lang.Object ref = shipName_;
+        if (ref instanceof String) {
+          return (String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+            shipName_ = s;
+          }
+          return s;
+        }
       }
-      public org.lsfn.nebula.FF.FFup.Lobby.ConnectionOrBuilder getConnectionOrBuilder() {
-        return connection_;
+      private com.google.protobuf.ByteString getShipNameBytes() {
+        java.lang.Object ref = shipName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+          shipName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       
       private void initFields() {
         readyState_ = false;
-        connection_ = org.lsfn.nebula.FF.FFup.Lobby.Connection.getDefaultInstance();
+        shipName_ = "";
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -700,7 +156,7 @@ public final class FF {
           output.writeBool(1, readyState_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeMessage(2, connection_);
+          output.writeBytes(2, getShipNameBytes());
         }
         getUnknownFields().writeTo(output);
       }
@@ -717,7 +173,7 @@ public final class FF {
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(2, connection_);
+            .computeBytesSize(2, getShipNameBytes());
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -835,7 +291,6 @@ public final class FF {
         }
         private void maybeForceBuilderInitialization() {
           if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            getConnectionFieldBuilder();
           }
         }
         private static Builder create() {
@@ -846,11 +301,7 @@ public final class FF {
           super.clear();
           readyState_ = false;
           bitField0_ = (bitField0_ & ~0x00000001);
-          if (connectionBuilder_ == null) {
-            connection_ = org.lsfn.nebula.FF.FFup.Lobby.Connection.getDefaultInstance();
-          } else {
-            connectionBuilder_.clear();
-          }
+          shipName_ = "";
           bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
@@ -897,11 +348,7 @@ public final class FF {
           if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x00000002;
           }
-          if (connectionBuilder_ == null) {
-            result.connection_ = connection_;
-          } else {
-            result.connection_ = connectionBuilder_.build();
-          }
+          result.shipName_ = shipName_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
@@ -921,8 +368,8 @@ public final class FF {
           if (other.hasReadyState()) {
             setReadyState(other.getReadyState());
           }
-          if (other.hasConnection()) {
-            mergeConnection(other.getConnection());
+          if (other.hasShipName()) {
+            setShipName(other.getShipName());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
@@ -961,12 +408,8 @@ public final class FF {
                 break;
               }
               case 18: {
-                org.lsfn.nebula.FF.FFup.Lobby.Connection.Builder subBuilder = org.lsfn.nebula.FF.FFup.Lobby.Connection.newBuilder();
-                if (hasConnection()) {
-                  subBuilder.mergeFrom(getConnection());
-                }
-                input.readMessage(subBuilder, extensionRegistry);
-                setConnection(subBuilder.buildPartial());
+                bitField0_ |= 0x00000002;
+                shipName_ = input.readBytes();
                 break;
               }
             }
@@ -996,94 +439,40 @@ public final class FF {
           return this;
         }
         
-        // optional .FFup.Lobby.Connection connection = 2;
-        private org.lsfn.nebula.FF.FFup.Lobby.Connection connection_ = org.lsfn.nebula.FF.FFup.Lobby.Connection.getDefaultInstance();
-        private com.google.protobuf.SingleFieldBuilder<
-            org.lsfn.nebula.FF.FFup.Lobby.Connection, org.lsfn.nebula.FF.FFup.Lobby.Connection.Builder, org.lsfn.nebula.FF.FFup.Lobby.ConnectionOrBuilder> connectionBuilder_;
-        public boolean hasConnection() {
+        // optional string shipName = 2;
+        private java.lang.Object shipName_ = "";
+        public boolean hasShipName() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
-        public org.lsfn.nebula.FF.FFup.Lobby.Connection getConnection() {
-          if (connectionBuilder_ == null) {
-            return connection_;
+        public String getShipName() {
+          java.lang.Object ref = shipName_;
+          if (!(ref instanceof String)) {
+            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+            shipName_ = s;
+            return s;
           } else {
-            return connectionBuilder_.getMessage();
+            return (String) ref;
           }
         }
-        public Builder setConnection(org.lsfn.nebula.FF.FFup.Lobby.Connection value) {
-          if (connectionBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            connection_ = value;
-            onChanged();
-          } else {
-            connectionBuilder_.setMessage(value);
-          }
-          bitField0_ |= 0x00000002;
-          return this;
-        }
-        public Builder setConnection(
-            org.lsfn.nebula.FF.FFup.Lobby.Connection.Builder builderForValue) {
-          if (connectionBuilder_ == null) {
-            connection_ = builderForValue.build();
-            onChanged();
-          } else {
-            connectionBuilder_.setMessage(builderForValue.build());
-          }
-          bitField0_ |= 0x00000002;
-          return this;
-        }
-        public Builder mergeConnection(org.lsfn.nebula.FF.FFup.Lobby.Connection value) {
-          if (connectionBuilder_ == null) {
-            if (((bitField0_ & 0x00000002) == 0x00000002) &&
-                connection_ != org.lsfn.nebula.FF.FFup.Lobby.Connection.getDefaultInstance()) {
-              connection_ =
-                org.lsfn.nebula.FF.FFup.Lobby.Connection.newBuilder(connection_).mergeFrom(value).buildPartial();
-            } else {
-              connection_ = value;
-            }
-            onChanged();
-          } else {
-            connectionBuilder_.mergeFrom(value);
-          }
-          bitField0_ |= 0x00000002;
-          return this;
-        }
-        public Builder clearConnection() {
-          if (connectionBuilder_ == null) {
-            connection_ = org.lsfn.nebula.FF.FFup.Lobby.Connection.getDefaultInstance();
-            onChanged();
-          } else {
-            connectionBuilder_.clear();
-          }
-          bitField0_ = (bitField0_ & ~0x00000002);
-          return this;
-        }
-        public org.lsfn.nebula.FF.FFup.Lobby.Connection.Builder getConnectionBuilder() {
-          bitField0_ |= 0x00000002;
+        public Builder setShipName(String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          shipName_ = value;
           onChanged();
-          return getConnectionFieldBuilder().getBuilder();
+          return this;
         }
-        public org.lsfn.nebula.FF.FFup.Lobby.ConnectionOrBuilder getConnectionOrBuilder() {
-          if (connectionBuilder_ != null) {
-            return connectionBuilder_.getMessageOrBuilder();
-          } else {
-            return connection_;
-          }
+        public Builder clearShipName() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          shipName_ = getDefaultInstance().getShipName();
+          onChanged();
+          return this;
         }
-        private com.google.protobuf.SingleFieldBuilder<
-            org.lsfn.nebula.FF.FFup.Lobby.Connection, org.lsfn.nebula.FF.FFup.Lobby.Connection.Builder, org.lsfn.nebula.FF.FFup.Lobby.ConnectionOrBuilder> 
-            getConnectionFieldBuilder() {
-          if (connectionBuilder_ == null) {
-            connectionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-                org.lsfn.nebula.FF.FFup.Lobby.Connection, org.lsfn.nebula.FF.FFup.Lobby.Connection.Builder, org.lsfn.nebula.FF.FFup.Lobby.ConnectionOrBuilder>(
-                    connection_,
-                    getParentForChildren(),
-                    isClean());
-            connection_ = null;
-          }
-          return connectionBuilder_;
+        void setShipName(com.google.protobuf.ByteString value) {
+          bitField0_ |= 0x00000002;
+          shipName_ = value;
+          onChanged();
         }
         
         // @@protoc_insertion_point(builder_scope:FFup.Lobby)
@@ -1472,6 +861,629 @@ public final class FF {
       // @@protoc_insertion_point(class_scope:FFup.RCon)
     }
     
+    public interface PilotingOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+      
+      // optional bool turnAnti = 1;
+      boolean hasTurnAnti();
+      boolean getTurnAnti();
+      
+      // optional bool turnClock = 2;
+      boolean hasTurnClock();
+      boolean getTurnClock();
+      
+      // optional bool thrustLeft = 3;
+      boolean hasThrustLeft();
+      boolean getThrustLeft();
+      
+      // optional bool thrustRight = 4;
+      boolean hasThrustRight();
+      boolean getThrustRight();
+      
+      // optional bool thrustForward = 5;
+      boolean hasThrustForward();
+      boolean getThrustForward();
+      
+      // optional bool thrustBackward = 6;
+      boolean hasThrustBackward();
+      boolean getThrustBackward();
+    }
+    public static final class Piloting extends
+        com.google.protobuf.GeneratedMessage
+        implements PilotingOrBuilder {
+      // Use Piloting.newBuilder() to construct.
+      private Piloting(Builder builder) {
+        super(builder);
+      }
+      private Piloting(boolean noInit) {}
+      
+      private static final Piloting defaultInstance;
+      public static Piloting getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public Piloting getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.lsfn.nebula.FF.internal_static_FFup_Piloting_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.lsfn.nebula.FF.internal_static_FFup_Piloting_fieldAccessorTable;
+      }
+      
+      private int bitField0_;
+      // optional bool turnAnti = 1;
+      public static final int TURNANTI_FIELD_NUMBER = 1;
+      private boolean turnAnti_;
+      public boolean hasTurnAnti() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public boolean getTurnAnti() {
+        return turnAnti_;
+      }
+      
+      // optional bool turnClock = 2;
+      public static final int TURNCLOCK_FIELD_NUMBER = 2;
+      private boolean turnClock_;
+      public boolean hasTurnClock() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public boolean getTurnClock() {
+        return turnClock_;
+      }
+      
+      // optional bool thrustLeft = 3;
+      public static final int THRUSTLEFT_FIELD_NUMBER = 3;
+      private boolean thrustLeft_;
+      public boolean hasThrustLeft() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public boolean getThrustLeft() {
+        return thrustLeft_;
+      }
+      
+      // optional bool thrustRight = 4;
+      public static final int THRUSTRIGHT_FIELD_NUMBER = 4;
+      private boolean thrustRight_;
+      public boolean hasThrustRight() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public boolean getThrustRight() {
+        return thrustRight_;
+      }
+      
+      // optional bool thrustForward = 5;
+      public static final int THRUSTFORWARD_FIELD_NUMBER = 5;
+      private boolean thrustForward_;
+      public boolean hasThrustForward() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public boolean getThrustForward() {
+        return thrustForward_;
+      }
+      
+      // optional bool thrustBackward = 6;
+      public static final int THRUSTBACKWARD_FIELD_NUMBER = 6;
+      private boolean thrustBackward_;
+      public boolean hasThrustBackward() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public boolean getThrustBackward() {
+        return thrustBackward_;
+      }
+      
+      private void initFields() {
+        turnAnti_ = false;
+        turnClock_ = false;
+        thrustLeft_ = false;
+        thrustRight_ = false;
+        thrustForward_ = false;
+        thrustBackward_ = false;
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+        
+        memoizedIsInitialized = 1;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeBool(1, turnAnti_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeBool(2, turnClock_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeBool(3, thrustLeft_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeBool(4, thrustRight_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeBool(5, thrustForward_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          output.writeBool(6, thrustBackward_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(1, turnAnti_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(2, turnClock_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(3, thrustLeft_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(4, thrustRight_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(5, thrustForward_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(6, thrustBackward_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+      
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFup.Piloting parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(org.lsfn.nebula.FF.FFup.Piloting prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements org.lsfn.nebula.FF.FFup.PilotingOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return org.lsfn.nebula.FF.internal_static_FFup_Piloting_descriptor;
+        }
+        
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return org.lsfn.nebula.FF.internal_static_FFup_Piloting_fieldAccessorTable;
+        }
+        
+        // Construct using org.lsfn.nebula.FF.FFup.Piloting.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+        
+        private Builder(BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+        
+        public Builder clear() {
+          super.clear();
+          turnAnti_ = false;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          turnClock_ = false;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          thrustLeft_ = false;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          thrustRight_ = false;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          thrustForward_ = false;
+          bitField0_ = (bitField0_ & ~0x00000010);
+          thrustBackward_ = false;
+          bitField0_ = (bitField0_ & ~0x00000020);
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return org.lsfn.nebula.FF.FFup.Piloting.getDescriptor();
+        }
+        
+        public org.lsfn.nebula.FF.FFup.Piloting getDefaultInstanceForType() {
+          return org.lsfn.nebula.FF.FFup.Piloting.getDefaultInstance();
+        }
+        
+        public org.lsfn.nebula.FF.FFup.Piloting build() {
+          org.lsfn.nebula.FF.FFup.Piloting result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+        
+        private org.lsfn.nebula.FF.FFup.Piloting buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          org.lsfn.nebula.FF.FFup.Piloting result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return result;
+        }
+        
+        public org.lsfn.nebula.FF.FFup.Piloting buildPartial() {
+          org.lsfn.nebula.FF.FFup.Piloting result = new org.lsfn.nebula.FF.FFup.Piloting(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.turnAnti_ = turnAnti_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.turnClock_ = turnClock_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.thrustLeft_ = thrustLeft_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.thrustRight_ = thrustRight_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.thrustForward_ = thrustForward_;
+          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+            to_bitField0_ |= 0x00000020;
+          }
+          result.thrustBackward_ = thrustBackward_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof org.lsfn.nebula.FF.FFup.Piloting) {
+            return mergeFrom((org.lsfn.nebula.FF.FFup.Piloting)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(org.lsfn.nebula.FF.FFup.Piloting other) {
+          if (other == org.lsfn.nebula.FF.FFup.Piloting.getDefaultInstance()) return this;
+          if (other.hasTurnAnti()) {
+            setTurnAnti(other.getTurnAnti());
+          }
+          if (other.hasTurnClock()) {
+            setTurnClock(other.getTurnClock());
+          }
+          if (other.hasThrustLeft()) {
+            setThrustLeft(other.getThrustLeft());
+          }
+          if (other.hasThrustRight()) {
+            setThrustRight(other.getThrustRight());
+          }
+          if (other.hasThrustForward()) {
+            setThrustForward(other.getThrustForward());
+          }
+          if (other.hasThrustBackward()) {
+            setThrustBackward(other.getThrustBackward());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public final boolean isInitialized() {
+          return true;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  onChanged();
+                  return this;
+                }
+                break;
+              }
+              case 8: {
+                bitField0_ |= 0x00000001;
+                turnAnti_ = input.readBool();
+                break;
+              }
+              case 16: {
+                bitField0_ |= 0x00000002;
+                turnClock_ = input.readBool();
+                break;
+              }
+              case 24: {
+                bitField0_ |= 0x00000004;
+                thrustLeft_ = input.readBool();
+                break;
+              }
+              case 32: {
+                bitField0_ |= 0x00000008;
+                thrustRight_ = input.readBool();
+                break;
+              }
+              case 40: {
+                bitField0_ |= 0x00000010;
+                thrustForward_ = input.readBool();
+                break;
+              }
+              case 48: {
+                bitField0_ |= 0x00000020;
+                thrustBackward_ = input.readBool();
+                break;
+              }
+            }
+          }
+        }
+        
+        private int bitField0_;
+        
+        // optional bool turnAnti = 1;
+        private boolean turnAnti_ ;
+        public boolean hasTurnAnti() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        public boolean getTurnAnti() {
+          return turnAnti_;
+        }
+        public Builder setTurnAnti(boolean value) {
+          bitField0_ |= 0x00000001;
+          turnAnti_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearTurnAnti() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          turnAnti_ = false;
+          onChanged();
+          return this;
+        }
+        
+        // optional bool turnClock = 2;
+        private boolean turnClock_ ;
+        public boolean hasTurnClock() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        public boolean getTurnClock() {
+          return turnClock_;
+        }
+        public Builder setTurnClock(boolean value) {
+          bitField0_ |= 0x00000002;
+          turnClock_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearTurnClock() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          turnClock_ = false;
+          onChanged();
+          return this;
+        }
+        
+        // optional bool thrustLeft = 3;
+        private boolean thrustLeft_ ;
+        public boolean hasThrustLeft() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        public boolean getThrustLeft() {
+          return thrustLeft_;
+        }
+        public Builder setThrustLeft(boolean value) {
+          bitField0_ |= 0x00000004;
+          thrustLeft_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearThrustLeft() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          thrustLeft_ = false;
+          onChanged();
+          return this;
+        }
+        
+        // optional bool thrustRight = 4;
+        private boolean thrustRight_ ;
+        public boolean hasThrustRight() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        public boolean getThrustRight() {
+          return thrustRight_;
+        }
+        public Builder setThrustRight(boolean value) {
+          bitField0_ |= 0x00000008;
+          thrustRight_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearThrustRight() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          thrustRight_ = false;
+          onChanged();
+          return this;
+        }
+        
+        // optional bool thrustForward = 5;
+        private boolean thrustForward_ ;
+        public boolean hasThrustForward() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        public boolean getThrustForward() {
+          return thrustForward_;
+        }
+        public Builder setThrustForward(boolean value) {
+          bitField0_ |= 0x00000010;
+          thrustForward_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearThrustForward() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          thrustForward_ = false;
+          onChanged();
+          return this;
+        }
+        
+        // optional bool thrustBackward = 6;
+        private boolean thrustBackward_ ;
+        public boolean hasThrustBackward() {
+          return ((bitField0_ & 0x00000020) == 0x00000020);
+        }
+        public boolean getThrustBackward() {
+          return thrustBackward_;
+        }
+        public Builder setThrustBackward(boolean value) {
+          bitField0_ |= 0x00000020;
+          thrustBackward_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearThrustBackward() {
+          bitField0_ = (bitField0_ & ~0x00000020);
+          thrustBackward_ = false;
+          onChanged();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:FFup.Piloting)
+      }
+      
+      static {
+        defaultInstance = new Piloting(true);
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:FFup.Piloting)
+    }
+    
     private int bitField0_;
     // optional .FFup.Lobby lobby = 1;
     public static final int LOBBY_FIELD_NUMBER = 1;
@@ -1499,9 +1511,23 @@ public final class FF {
       return rcon_;
     }
     
+    // optional .FFup.Piloting piloting = 3;
+    public static final int PILOTING_FIELD_NUMBER = 3;
+    private org.lsfn.nebula.FF.FFup.Piloting piloting_;
+    public boolean hasPiloting() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public org.lsfn.nebula.FF.FFup.Piloting getPiloting() {
+      return piloting_;
+    }
+    public org.lsfn.nebula.FF.FFup.PilotingOrBuilder getPilotingOrBuilder() {
+      return piloting_;
+    }
+    
     private void initFields() {
       lobby_ = org.lsfn.nebula.FF.FFup.Lobby.getDefaultInstance();
       rcon_ = org.lsfn.nebula.FF.FFup.RCon.getDefaultInstance();
+      piloting_ = org.lsfn.nebula.FF.FFup.Piloting.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1521,6 +1547,9 @@ public final class FF {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, rcon_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, piloting_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -1537,6 +1566,10 @@ public final class FF {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, rcon_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, piloting_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1656,6 +1689,7 @@ public final class FF {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getLobbyFieldBuilder();
           getRconFieldBuilder();
+          getPilotingFieldBuilder();
         }
       }
       private static Builder create() {
@@ -1676,6 +1710,12 @@ public final class FF {
           rconBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (pilotingBuilder_ == null) {
+          piloting_ = org.lsfn.nebula.FF.FFup.Piloting.getDefaultInstance();
+        } else {
+          pilotingBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
@@ -1730,6 +1770,14 @@ public final class FF {
         } else {
           result.rcon_ = rconBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (pilotingBuilder_ == null) {
+          result.piloting_ = piloting_;
+        } else {
+          result.piloting_ = pilotingBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1751,6 +1799,9 @@ public final class FF {
         }
         if (other.hasRcon()) {
           mergeRcon(other.getRcon());
+        }
+        if (other.hasPiloting()) {
+          mergePiloting(other.getPiloting());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1799,6 +1850,15 @@ public final class FF {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setRcon(subBuilder.buildPartial());
+              break;
+            }
+            case 26: {
+              org.lsfn.nebula.FF.FFup.Piloting.Builder subBuilder = org.lsfn.nebula.FF.FFup.Piloting.newBuilder();
+              if (hasPiloting()) {
+                subBuilder.mergeFrom(getPiloting());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setPiloting(subBuilder.buildPartial());
               break;
             }
           }
@@ -1987,6 +2047,96 @@ public final class FF {
         return rconBuilder_;
       }
       
+      // optional .FFup.Piloting piloting = 3;
+      private org.lsfn.nebula.FF.FFup.Piloting piloting_ = org.lsfn.nebula.FF.FFup.Piloting.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.lsfn.nebula.FF.FFup.Piloting, org.lsfn.nebula.FF.FFup.Piloting.Builder, org.lsfn.nebula.FF.FFup.PilotingOrBuilder> pilotingBuilder_;
+      public boolean hasPiloting() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public org.lsfn.nebula.FF.FFup.Piloting getPiloting() {
+        if (pilotingBuilder_ == null) {
+          return piloting_;
+        } else {
+          return pilotingBuilder_.getMessage();
+        }
+      }
+      public Builder setPiloting(org.lsfn.nebula.FF.FFup.Piloting value) {
+        if (pilotingBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          piloting_ = value;
+          onChanged();
+        } else {
+          pilotingBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder setPiloting(
+          org.lsfn.nebula.FF.FFup.Piloting.Builder builderForValue) {
+        if (pilotingBuilder_ == null) {
+          piloting_ = builderForValue.build();
+          onChanged();
+        } else {
+          pilotingBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder mergePiloting(org.lsfn.nebula.FF.FFup.Piloting value) {
+        if (pilotingBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              piloting_ != org.lsfn.nebula.FF.FFup.Piloting.getDefaultInstance()) {
+            piloting_ =
+              org.lsfn.nebula.FF.FFup.Piloting.newBuilder(piloting_).mergeFrom(value).buildPartial();
+          } else {
+            piloting_ = value;
+          }
+          onChanged();
+        } else {
+          pilotingBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder clearPiloting() {
+        if (pilotingBuilder_ == null) {
+          piloting_ = org.lsfn.nebula.FF.FFup.Piloting.getDefaultInstance();
+          onChanged();
+        } else {
+          pilotingBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      public org.lsfn.nebula.FF.FFup.Piloting.Builder getPilotingBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getPilotingFieldBuilder().getBuilder();
+      }
+      public org.lsfn.nebula.FF.FFup.PilotingOrBuilder getPilotingOrBuilder() {
+        if (pilotingBuilder_ != null) {
+          return pilotingBuilder_.getMessageOrBuilder();
+        } else {
+          return piloting_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          org.lsfn.nebula.FF.FFup.Piloting, org.lsfn.nebula.FF.FFup.Piloting.Builder, org.lsfn.nebula.FF.FFup.PilotingOrBuilder> 
+          getPilotingFieldBuilder() {
+        if (pilotingBuilder_ == null) {
+          pilotingBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.lsfn.nebula.FF.FFup.Piloting, org.lsfn.nebula.FF.FFup.Piloting.Builder, org.lsfn.nebula.FF.FFup.PilotingOrBuilder>(
+                  piloting_,
+                  getParentForChildren(),
+                  isClean());
+          piloting_ = null;
+        }
+        return pilotingBuilder_;
+      }
+      
       // @@protoc_insertion_point(builder_scope:FFup)
     }
     
@@ -2001,10 +2151,15 @@ public final class FF {
   public interface FFdownOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // optional .FFdown.Reset reset = 1;
-    boolean hasReset();
-    org.lsfn.nebula.FF.FFdown.Reset getReset();
-    org.lsfn.nebula.FF.FFdown.ResetOrBuilder getResetOrBuilder();
+    // optional .FFdown.Lobby lobby = 1;
+    boolean hasLobby();
+    org.lsfn.nebula.FF.FFdown.Lobby getLobby();
+    org.lsfn.nebula.FF.FFdown.LobbyOrBuilder getLobbyOrBuilder();
+    
+    // optional .FFdown.VisualSensors visualSensors = 2;
+    boolean hasVisualSensors();
+    org.lsfn.nebula.FF.FFdown.VisualSensors getVisualSensors();
+    org.lsfn.nebula.FF.FFdown.VisualSensorsOrBuilder getVisualSensorsOrBuilder();
   }
   public static final class FFdown extends
       com.google.protobuf.GeneratedMessage
@@ -2034,54 +2189,74 @@ public final class FF {
       return org.lsfn.nebula.FF.internal_static_FFdown_fieldAccessorTable;
     }
     
-    public interface ResetOrBuilder
+    public interface LobbyOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // optional uint32 reset = 1;
-      boolean hasReset();
-      int getReset();
+      // repeated string shipNames = 1;
+      java.util.List<String> getShipNamesList();
+      int getShipNamesCount();
+      String getShipNames(int index);
+      
+      // optional bool gameStarted = 2;
+      boolean hasGameStarted();
+      boolean getGameStarted();
     }
-    public static final class Reset extends
+    public static final class Lobby extends
         com.google.protobuf.GeneratedMessage
-        implements ResetOrBuilder {
-      // Use Reset.newBuilder() to construct.
-      private Reset(Builder builder) {
+        implements LobbyOrBuilder {
+      // Use Lobby.newBuilder() to construct.
+      private Lobby(Builder builder) {
         super(builder);
       }
-      private Reset(boolean noInit) {}
+      private Lobby(boolean noInit) {}
       
-      private static final Reset defaultInstance;
-      public static Reset getDefaultInstance() {
+      private static final Lobby defaultInstance;
+      public static Lobby getDefaultInstance() {
         return defaultInstance;
       }
       
-      public Reset getDefaultInstanceForType() {
+      public Lobby getDefaultInstanceForType() {
         return defaultInstance;
       }
       
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.lsfn.nebula.FF.internal_static_FFdown_Reset_descriptor;
+        return org.lsfn.nebula.FF.internal_static_FFdown_Lobby_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.lsfn.nebula.FF.internal_static_FFdown_Reset_fieldAccessorTable;
+        return org.lsfn.nebula.FF.internal_static_FFdown_Lobby_fieldAccessorTable;
       }
       
       private int bitField0_;
-      // optional uint32 reset = 1;
-      public static final int RESET_FIELD_NUMBER = 1;
-      private int reset_;
-      public boolean hasReset() {
+      // repeated string shipNames = 1;
+      public static final int SHIPNAMES_FIELD_NUMBER = 1;
+      private com.google.protobuf.LazyStringList shipNames_;
+      public java.util.List<String>
+          getShipNamesList() {
+        return shipNames_;
+      }
+      public int getShipNamesCount() {
+        return shipNames_.size();
+      }
+      public String getShipNames(int index) {
+        return shipNames_.get(index);
+      }
+      
+      // optional bool gameStarted = 2;
+      public static final int GAMESTARTED_FIELD_NUMBER = 2;
+      private boolean gameStarted_;
+      public boolean hasGameStarted() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getReset() {
-        return reset_;
+      public boolean getGameStarted() {
+        return gameStarted_;
       }
       
       private void initFields() {
-        reset_ = 0;
+        shipNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        gameStarted_ = false;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -2095,8 +2270,11 @@ public final class FF {
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
         getSerializedSize();
+        for (int i = 0; i < shipNames_.size(); i++) {
+          output.writeBytes(1, shipNames_.getByteString(i));
+        }
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeUInt32(1, reset_);
+          output.writeBool(2, gameStarted_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -2107,9 +2285,18 @@ public final class FF {
         if (size != -1) return size;
       
         size = 0;
+        {
+          int dataSize = 0;
+          for (int i = 0; i < shipNames_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeBytesSizeNoTag(shipNames_.getByteString(i));
+          }
+          size += dataSize;
+          size += 1 * getShipNamesList().size();
+        }
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeUInt32Size(1, reset_);
+            .computeBoolSize(2, gameStarted_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -2123,41 +2310,41 @@ public final class FF {
         return super.writeReplace();
       }
       
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data).buildParsed();
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data, extensionRegistry)
                  .buildParsed();
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(byte[] data)
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data).buildParsed();
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data, extensionRegistry)
                  .buildParsed();
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(java.io.InputStream input)
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(java.io.InputStream input)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input).buildParsed();
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input, extensionRegistry)
                  .buildParsed();
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseDelimitedFrom(java.io.InputStream input)
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
         Builder builder = newBuilder();
         if (builder.mergeDelimitedFrom(input)) {
@@ -2166,7 +2353,7 @@ public final class FF {
           return null;
         }
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseDelimitedFrom(
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -2177,12 +2364,12 @@ public final class FF {
           return null;
         }
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input).buildParsed();
       }
-      public static org.lsfn.nebula.FF.FFdown.Reset parseFrom(
+      public static org.lsfn.nebula.FF.FFdown.Lobby parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -2192,7 +2379,7 @@ public final class FF {
       
       public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(org.lsfn.nebula.FF.FFdown.Reset prototype) {
+      public static Builder newBuilder(org.lsfn.nebula.FF.FFdown.Lobby prototype) {
         return newBuilder().mergeFrom(prototype);
       }
       public Builder toBuilder() { return newBuilder(this); }
@@ -2205,18 +2392,18 @@ public final class FF {
       }
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements org.lsfn.nebula.FF.FFdown.ResetOrBuilder {
+         implements org.lsfn.nebula.FF.FFdown.LobbyOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-          return org.lsfn.nebula.FF.internal_static_FFdown_Reset_descriptor;
+          return org.lsfn.nebula.FF.internal_static_FFdown_Lobby_descriptor;
         }
         
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return org.lsfn.nebula.FF.internal_static_FFdown_Reset_fieldAccessorTable;
+          return org.lsfn.nebula.FF.internal_static_FFdown_Lobby_fieldAccessorTable;
         }
         
-        // Construct using org.lsfn.nebula.FF.FFdown.Reset.newBuilder()
+        // Construct using org.lsfn.nebula.FF.FFdown.Lobby.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
@@ -2235,8 +2422,10 @@ public final class FF {
         
         public Builder clear() {
           super.clear();
-          reset_ = 0;
+          shipNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
           bitField0_ = (bitField0_ & ~0x00000001);
+          gameStarted_ = false;
+          bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
         
@@ -2246,24 +2435,24 @@ public final class FF {
         
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return org.lsfn.nebula.FF.FFdown.Reset.getDescriptor();
+          return org.lsfn.nebula.FF.FFdown.Lobby.getDescriptor();
         }
         
-        public org.lsfn.nebula.FF.FFdown.Reset getDefaultInstanceForType() {
-          return org.lsfn.nebula.FF.FFdown.Reset.getDefaultInstance();
+        public org.lsfn.nebula.FF.FFdown.Lobby getDefaultInstanceForType() {
+          return org.lsfn.nebula.FF.FFdown.Lobby.getDefaultInstance();
         }
         
-        public org.lsfn.nebula.FF.FFdown.Reset build() {
-          org.lsfn.nebula.FF.FFdown.Reset result = buildPartial();
+        public org.lsfn.nebula.FF.FFdown.Lobby build() {
+          org.lsfn.nebula.FF.FFdown.Lobby result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(result);
           }
           return result;
         }
         
-        private org.lsfn.nebula.FF.FFdown.Reset buildParsed()
+        private org.lsfn.nebula.FF.FFdown.Lobby buildParsed()
             throws com.google.protobuf.InvalidProtocolBufferException {
-          org.lsfn.nebula.FF.FFdown.Reset result = buildPartial();
+          org.lsfn.nebula.FF.FFdown.Lobby result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(
               result).asInvalidProtocolBufferException();
@@ -2271,32 +2460,48 @@ public final class FF {
           return result;
         }
         
-        public org.lsfn.nebula.FF.FFdown.Reset buildPartial() {
-          org.lsfn.nebula.FF.FFdown.Reset result = new org.lsfn.nebula.FF.FFdown.Reset(this);
+        public org.lsfn.nebula.FF.FFdown.Lobby buildPartial() {
+          org.lsfn.nebula.FF.FFdown.Lobby result = new org.lsfn.nebula.FF.FFdown.Lobby(this);
           int from_bitField0_ = bitField0_;
           int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            shipNames_ = new com.google.protobuf.UnmodifiableLazyStringList(
+                shipNames_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.shipNames_ = shipNames_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x00000001;
           }
-          result.reset_ = reset_;
+          result.gameStarted_ = gameStarted_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
         }
         
         public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof org.lsfn.nebula.FF.FFdown.Reset) {
-            return mergeFrom((org.lsfn.nebula.FF.FFdown.Reset)other);
+          if (other instanceof org.lsfn.nebula.FF.FFdown.Lobby) {
+            return mergeFrom((org.lsfn.nebula.FF.FFdown.Lobby)other);
           } else {
             super.mergeFrom(other);
             return this;
           }
         }
         
-        public Builder mergeFrom(org.lsfn.nebula.FF.FFdown.Reset other) {
-          if (other == org.lsfn.nebula.FF.FFdown.Reset.getDefaultInstance()) return this;
-          if (other.hasReset()) {
-            setReset(other.getReset());
+        public Builder mergeFrom(org.lsfn.nebula.FF.FFdown.Lobby other) {
+          if (other == org.lsfn.nebula.FF.FFdown.Lobby.getDefaultInstance()) return this;
+          if (!other.shipNames_.isEmpty()) {
+            if (shipNames_.isEmpty()) {
+              shipNames_ = other.shipNames_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureShipNamesIsMutable();
+              shipNames_.addAll(other.shipNames_);
+            }
+            onChanged();
+          }
+          if (other.hasGameStarted()) {
+            setGameStarted(other.getGameStarted());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
@@ -2329,9 +2534,14 @@ public final class FF {
                 }
                 break;
               }
-              case 8: {
-                bitField0_ |= 0x00000001;
-                reset_ = input.readUInt32();
+              case 10: {
+                ensureShipNamesIsMutable();
+                shipNames_.add(input.readBytes());
+                break;
+              }
+              case 16: {
+                bitField0_ |= 0x00000002;
+                gameStarted_ = input.readBool();
                 break;
               }
             }
@@ -2340,54 +2550,1608 @@ public final class FF {
         
         private int bitField0_;
         
-        // optional uint32 reset = 1;
-        private int reset_ ;
-        public boolean hasReset() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
+        // repeated string shipNames = 1;
+        private com.google.protobuf.LazyStringList shipNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        private void ensureShipNamesIsMutable() {
+          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+            shipNames_ = new com.google.protobuf.LazyStringArrayList(shipNames_);
+            bitField0_ |= 0x00000001;
+           }
         }
-        public int getReset() {
-          return reset_;
+        public java.util.List<String>
+            getShipNamesList() {
+          return java.util.Collections.unmodifiableList(shipNames_);
         }
-        public Builder setReset(int value) {
-          bitField0_ |= 0x00000001;
-          reset_ = value;
+        public int getShipNamesCount() {
+          return shipNames_.size();
+        }
+        public String getShipNames(int index) {
+          return shipNames_.get(index);
+        }
+        public Builder setShipNames(
+            int index, String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureShipNamesIsMutable();
+          shipNames_.set(index, value);
           onChanged();
           return this;
         }
-        public Builder clearReset() {
+        public Builder addShipNames(String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureShipNamesIsMutable();
+          shipNames_.add(value);
+          onChanged();
+          return this;
+        }
+        public Builder addAllShipNames(
+            java.lang.Iterable<String> values) {
+          ensureShipNamesIsMutable();
+          super.addAll(values, shipNames_);
+          onChanged();
+          return this;
+        }
+        public Builder clearShipNames() {
+          shipNames_ = com.google.protobuf.LazyStringArrayList.EMPTY;
           bitField0_ = (bitField0_ & ~0x00000001);
-          reset_ = 0;
+          onChanged();
+          return this;
+        }
+        void addShipNames(com.google.protobuf.ByteString value) {
+          ensureShipNamesIsMutable();
+          shipNames_.add(value);
+          onChanged();
+        }
+        
+        // optional bool gameStarted = 2;
+        private boolean gameStarted_ ;
+        public boolean hasGameStarted() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        public boolean getGameStarted() {
+          return gameStarted_;
+        }
+        public Builder setGameStarted(boolean value) {
+          bitField0_ |= 0x00000002;
+          gameStarted_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearGameStarted() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          gameStarted_ = false;
           onChanged();
           return this;
         }
         
-        // @@protoc_insertion_point(builder_scope:FFdown.Reset)
+        // @@protoc_insertion_point(builder_scope:FFdown.Lobby)
       }
       
       static {
-        defaultInstance = new Reset(true);
+        defaultInstance = new Lobby(true);
         defaultInstance.initFields();
       }
       
-      // @@protoc_insertion_point(class_scope:FFdown.Reset)
+      // @@protoc_insertion_point(class_scope:FFdown.Lobby)
+    }
+    
+    public interface VisualSensorsOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+      
+      // repeated .FFdown.VisualSensors.SpaceObject spaceObjects = 1;
+      java.util.List<org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject> 
+          getSpaceObjectsList();
+      org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject getSpaceObjects(int index);
+      int getSpaceObjectsCount();
+      java.util.List<? extends org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder> 
+          getSpaceObjectsOrBuilderList();
+      org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder getSpaceObjectsOrBuilder(
+          int index);
+    }
+    public static final class VisualSensors extends
+        com.google.protobuf.GeneratedMessage
+        implements VisualSensorsOrBuilder {
+      // Use VisualSensors.newBuilder() to construct.
+      private VisualSensors(Builder builder) {
+        super(builder);
+      }
+      private VisualSensors(boolean noInit) {}
+      
+      private static final VisualSensors defaultInstance;
+      public static VisualSensors getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public VisualSensors getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_fieldAccessorTable;
+      }
+      
+      public interface SpaceObjectOrBuilder
+          extends com.google.protobuf.MessageOrBuilder {
+        
+        // optional uint32 type = 1;
+        boolean hasType();
+        int getType();
+        
+        // optional .FFdown.VisualSensors.SpaceObject.Point position = 2;
+        boolean hasPosition();
+        org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point getPosition();
+        org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.PointOrBuilder getPositionOrBuilder();
+        
+        // optional double orientation = 3;
+        boolean hasOrientation();
+        double getOrientation();
+      }
+      public static final class SpaceObject extends
+          com.google.protobuf.GeneratedMessage
+          implements SpaceObjectOrBuilder {
+        // Use SpaceObject.newBuilder() to construct.
+        private SpaceObject(Builder builder) {
+          super(builder);
+        }
+        private SpaceObject(boolean noInit) {}
+        
+        private static final SpaceObject defaultInstance;
+        public static SpaceObject getDefaultInstance() {
+          return defaultInstance;
+        }
+        
+        public SpaceObject getDefaultInstanceForType() {
+          return defaultInstance;
+        }
+        
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_descriptor;
+        }
+        
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_fieldAccessorTable;
+        }
+        
+        public interface PointOrBuilder
+            extends com.google.protobuf.MessageOrBuilder {
+          
+          // optional double x = 1;
+          boolean hasX();
+          double getX();
+          
+          // optional double y = 2;
+          boolean hasY();
+          double getY();
+        }
+        public static final class Point extends
+            com.google.protobuf.GeneratedMessage
+            implements PointOrBuilder {
+          // Use Point.newBuilder() to construct.
+          private Point(Builder builder) {
+            super(builder);
+          }
+          private Point(boolean noInit) {}
+          
+          private static final Point defaultInstance;
+          public static Point getDefaultInstance() {
+            return defaultInstance;
+          }
+          
+          public Point getDefaultInstanceForType() {
+            return defaultInstance;
+          }
+          
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_Point_descriptor;
+          }
+          
+          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_Point_fieldAccessorTable;
+          }
+          
+          private int bitField0_;
+          // optional double x = 1;
+          public static final int X_FIELD_NUMBER = 1;
+          private double x_;
+          public boolean hasX() {
+            return ((bitField0_ & 0x00000001) == 0x00000001);
+          }
+          public double getX() {
+            return x_;
+          }
+          
+          // optional double y = 2;
+          public static final int Y_FIELD_NUMBER = 2;
+          private double y_;
+          public boolean hasY() {
+            return ((bitField0_ & 0x00000002) == 0x00000002);
+          }
+          public double getY() {
+            return y_;
+          }
+          
+          private void initFields() {
+            x_ = 0D;
+            y_ = 0D;
+          }
+          private byte memoizedIsInitialized = -1;
+          public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized != -1) return isInitialized == 1;
+            
+            memoizedIsInitialized = 1;
+            return true;
+          }
+          
+          public void writeTo(com.google.protobuf.CodedOutputStream output)
+                              throws java.io.IOException {
+            getSerializedSize();
+            if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              output.writeDouble(1, x_);
+            }
+            if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              output.writeDouble(2, y_);
+            }
+            getUnknownFields().writeTo(output);
+          }
+          
+          private int memoizedSerializedSize = -1;
+          public int getSerializedSize() {
+            int size = memoizedSerializedSize;
+            if (size != -1) return size;
+          
+            size = 0;
+            if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              size += com.google.protobuf.CodedOutputStream
+                .computeDoubleSize(1, x_);
+            }
+            if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              size += com.google.protobuf.CodedOutputStream
+                .computeDoubleSize(2, y_);
+            }
+            size += getUnknownFields().getSerializedSize();
+            memoizedSerializedSize = size;
+            return size;
+          }
+          
+          private static final long serialVersionUID = 0L;
+          @java.lang.Override
+          protected java.lang.Object writeReplace()
+              throws java.io.ObjectStreamException {
+            return super.writeReplace();
+          }
+          
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(
+              com.google.protobuf.ByteString data)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return newBuilder().mergeFrom(data).buildParsed();
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(
+              com.google.protobuf.ByteString data,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return newBuilder().mergeFrom(data, extensionRegistry)
+                     .buildParsed();
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(byte[] data)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return newBuilder().mergeFrom(data).buildParsed();
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(
+              byte[] data,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return newBuilder().mergeFrom(data, extensionRegistry)
+                     .buildParsed();
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(java.io.InputStream input)
+              throws java.io.IOException {
+            return newBuilder().mergeFrom(input).buildParsed();
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(
+              java.io.InputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            return newBuilder().mergeFrom(input, extensionRegistry)
+                     .buildParsed();
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseDelimitedFrom(java.io.InputStream input)
+              throws java.io.IOException {
+            Builder builder = newBuilder();
+            if (builder.mergeDelimitedFrom(input)) {
+              return builder.buildParsed();
+            } else {
+              return null;
+            }
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseDelimitedFrom(
+              java.io.InputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            Builder builder = newBuilder();
+            if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+              return builder.buildParsed();
+            } else {
+              return null;
+            }
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(
+              com.google.protobuf.CodedInputStream input)
+              throws java.io.IOException {
+            return newBuilder().mergeFrom(input).buildParsed();
+          }
+          public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point parseFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            return newBuilder().mergeFrom(input, extensionRegistry)
+                     .buildParsed();
+          }
+          
+          public static Builder newBuilder() { return Builder.create(); }
+          public Builder newBuilderForType() { return newBuilder(); }
+          public static Builder newBuilder(org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point prototype) {
+            return newBuilder().mergeFrom(prototype);
+          }
+          public Builder toBuilder() { return newBuilder(this); }
+          
+          @java.lang.Override
+          protected Builder newBuilderForType(
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+          }
+          public static final class Builder extends
+              com.google.protobuf.GeneratedMessage.Builder<Builder>
+             implements org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.PointOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+                getDescriptor() {
+              return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_Point_descriptor;
+            }
+            
+            protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+                internalGetFieldAccessorTable() {
+              return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_Point_fieldAccessorTable;
+            }
+            
+            // Construct using org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.newBuilder()
+            private Builder() {
+              maybeForceBuilderInitialization();
+            }
+            
+            private Builder(BuilderParent parent) {
+              super(parent);
+              maybeForceBuilderInitialization();
+            }
+            private void maybeForceBuilderInitialization() {
+              if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+              }
+            }
+            private static Builder create() {
+              return new Builder();
+            }
+            
+            public Builder clear() {
+              super.clear();
+              x_ = 0D;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              y_ = 0D;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              return this;
+            }
+            
+            public Builder clone() {
+              return create().mergeFrom(buildPartial());
+            }
+            
+            public com.google.protobuf.Descriptors.Descriptor
+                getDescriptorForType() {
+              return org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDescriptor();
+            }
+            
+            public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point getDefaultInstanceForType() {
+              return org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDefaultInstance();
+            }
+            
+            public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point build() {
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point result = buildPartial();
+              if (!result.isInitialized()) {
+                throw newUninitializedMessageException(result);
+              }
+              return result;
+            }
+            
+            private org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point buildParsed()
+                throws com.google.protobuf.InvalidProtocolBufferException {
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point result = buildPartial();
+              if (!result.isInitialized()) {
+                throw newUninitializedMessageException(
+                  result).asInvalidProtocolBufferException();
+              }
+              return result;
+            }
+            
+            public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point buildPartial() {
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point result = new org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point(this);
+              int from_bitField0_ = bitField0_;
+              int to_bitField0_ = 0;
+              if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+                to_bitField0_ |= 0x00000001;
+              }
+              result.x_ = x_;
+              if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+                to_bitField0_ |= 0x00000002;
+              }
+              result.y_ = y_;
+              result.bitField0_ = to_bitField0_;
+              onBuilt();
+              return result;
+            }
+            
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+              if (other instanceof org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point) {
+                return mergeFrom((org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point)other);
+              } else {
+                super.mergeFrom(other);
+                return this;
+              }
+            }
+            
+            public Builder mergeFrom(org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point other) {
+              if (other == org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDefaultInstance()) return this;
+              if (other.hasX()) {
+                setX(other.getX());
+              }
+              if (other.hasY()) {
+                setY(other.getY());
+              }
+              this.mergeUnknownFields(other.getUnknownFields());
+              return this;
+            }
+            
+            public final boolean isInitialized() {
+              return true;
+            }
+            
+            public Builder mergeFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+              com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                com.google.protobuf.UnknownFieldSet.newBuilder(
+                  this.getUnknownFields());
+              while (true) {
+                int tag = input.readTag();
+                switch (tag) {
+                  case 0:
+                    this.setUnknownFields(unknownFields.build());
+                    onChanged();
+                    return this;
+                  default: {
+                    if (!parseUnknownField(input, unknownFields,
+                                           extensionRegistry, tag)) {
+                      this.setUnknownFields(unknownFields.build());
+                      onChanged();
+                      return this;
+                    }
+                    break;
+                  }
+                  case 9: {
+                    bitField0_ |= 0x00000001;
+                    x_ = input.readDouble();
+                    break;
+                  }
+                  case 17: {
+                    bitField0_ |= 0x00000002;
+                    y_ = input.readDouble();
+                    break;
+                  }
+                }
+              }
+            }
+            
+            private int bitField0_;
+            
+            // optional double x = 1;
+            private double x_ ;
+            public boolean hasX() {
+              return ((bitField0_ & 0x00000001) == 0x00000001);
+            }
+            public double getX() {
+              return x_;
+            }
+            public Builder setX(double value) {
+              bitField0_ |= 0x00000001;
+              x_ = value;
+              onChanged();
+              return this;
+            }
+            public Builder clearX() {
+              bitField0_ = (bitField0_ & ~0x00000001);
+              x_ = 0D;
+              onChanged();
+              return this;
+            }
+            
+            // optional double y = 2;
+            private double y_ ;
+            public boolean hasY() {
+              return ((bitField0_ & 0x00000002) == 0x00000002);
+            }
+            public double getY() {
+              return y_;
+            }
+            public Builder setY(double value) {
+              bitField0_ |= 0x00000002;
+              y_ = value;
+              onChanged();
+              return this;
+            }
+            public Builder clearY() {
+              bitField0_ = (bitField0_ & ~0x00000002);
+              y_ = 0D;
+              onChanged();
+              return this;
+            }
+            
+            // @@protoc_insertion_point(builder_scope:FFdown.VisualSensors.SpaceObject.Point)
+          }
+          
+          static {
+            defaultInstance = new Point(true);
+            defaultInstance.initFields();
+          }
+          
+          // @@protoc_insertion_point(class_scope:FFdown.VisualSensors.SpaceObject.Point)
+        }
+        
+        private int bitField0_;
+        // optional uint32 type = 1;
+        public static final int TYPE_FIELD_NUMBER = 1;
+        private int type_;
+        public boolean hasType() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        public int getType() {
+          return type_;
+        }
+        
+        // optional .FFdown.VisualSensors.SpaceObject.Point position = 2;
+        public static final int POSITION_FIELD_NUMBER = 2;
+        private org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point position_;
+        public boolean hasPosition() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point getPosition() {
+          return position_;
+        }
+        public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.PointOrBuilder getPositionOrBuilder() {
+          return position_;
+        }
+        
+        // optional double orientation = 3;
+        public static final int ORIENTATION_FIELD_NUMBER = 3;
+        private double orientation_;
+        public boolean hasOrientation() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        public double getOrientation() {
+          return orientation_;
+        }
+        
+        private void initFields() {
+          type_ = 0;
+          position_ = org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDefaultInstance();
+          orientation_ = 0D;
+        }
+        private byte memoizedIsInitialized = -1;
+        public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized != -1) return isInitialized == 1;
+          
+          memoizedIsInitialized = 1;
+          return true;
+        }
+        
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                            throws java.io.IOException {
+          getSerializedSize();
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            output.writeUInt32(1, type_);
+          }
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            output.writeMessage(2, position_);
+          }
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            output.writeDouble(3, orientation_);
+          }
+          getUnknownFields().writeTo(output);
+        }
+        
+        private int memoizedSerializedSize = -1;
+        public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) return size;
+        
+          size = 0;
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeUInt32Size(1, type_);
+          }
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(2, position_);
+          }
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeDoubleSize(3, orientation_);
+          }
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
+        }
+        
+        private static final long serialVersionUID = 0L;
+        @java.lang.Override
+        protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
+          return super.writeReplace();
+        }
+        
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return newBuilder().mergeFrom(data).buildParsed();
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return newBuilder().mergeFrom(data, extensionRegistry)
+                   .buildParsed();
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return newBuilder().mergeFrom(data).buildParsed();
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return newBuilder().mergeFrom(data, extensionRegistry)
+                   .buildParsed();
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return newBuilder().mergeFrom(input).buildParsed();
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return newBuilder().mergeFrom(input, extensionRegistry)
+                   .buildParsed();
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          Builder builder = newBuilder();
+          if (builder.mergeDelimitedFrom(input)) {
+            return builder.buildParsed();
+          } else {
+            return null;
+          }
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          Builder builder = newBuilder();
+          if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+            return builder.buildParsed();
+          } else {
+            return null;
+          }
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+          return newBuilder().mergeFrom(input).buildParsed();
+        }
+        public static org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return newBuilder().mergeFrom(input, extensionRegistry)
+                   .buildParsed();
+        }
+        
+        public static Builder newBuilder() { return Builder.create(); }
+        public Builder newBuilderForType() { return newBuilder(); }
+        public static Builder newBuilder(org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject prototype) {
+          return newBuilder().mergeFrom(prototype);
+        }
+        public Builder toBuilder() { return newBuilder(this); }
+        
+        @java.lang.Override
+        protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          Builder builder = new Builder(parent);
+          return builder;
+        }
+        public static final class Builder extends
+            com.google.protobuf.GeneratedMessage.Builder<Builder>
+           implements org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder {
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_descriptor;
+          }
+          
+          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_SpaceObject_fieldAccessorTable;
+          }
+          
+          // Construct using org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.newBuilder()
+          private Builder() {
+            maybeForceBuilderInitialization();
+          }
+          
+          private Builder(BuilderParent parent) {
+            super(parent);
+            maybeForceBuilderInitialization();
+          }
+          private void maybeForceBuilderInitialization() {
+            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+              getPositionFieldBuilder();
+            }
+          }
+          private static Builder create() {
+            return new Builder();
+          }
+          
+          public Builder clear() {
+            super.clear();
+            type_ = 0;
+            bitField0_ = (bitField0_ & ~0x00000001);
+            if (positionBuilder_ == null) {
+              position_ = org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDefaultInstance();
+            } else {
+              positionBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000002);
+            orientation_ = 0D;
+            bitField0_ = (bitField0_ & ~0x00000004);
+            return this;
+          }
+          
+          public Builder clone() {
+            return create().mergeFrom(buildPartial());
+          }
+          
+          public com.google.protobuf.Descriptors.Descriptor
+              getDescriptorForType() {
+            return org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.getDescriptor();
+          }
+          
+          public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject getDefaultInstanceForType() {
+            return org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.getDefaultInstance();
+          }
+          
+          public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject build() {
+            org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(result);
+            }
+            return result;
+          }
+          
+          private org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject buildParsed()
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(
+                result).asInvalidProtocolBufferException();
+            }
+            return result;
+          }
+          
+          public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject buildPartial() {
+            org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject result = new org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject(this);
+            int from_bitField0_ = bitField0_;
+            int to_bitField0_ = 0;
+            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+              to_bitField0_ |= 0x00000001;
+            }
+            result.type_ = type_;
+            if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+              to_bitField0_ |= 0x00000002;
+            }
+            if (positionBuilder_ == null) {
+              result.position_ = position_;
+            } else {
+              result.position_ = positionBuilder_.build();
+            }
+            if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+              to_bitField0_ |= 0x00000004;
+            }
+            result.orientation_ = orientation_;
+            result.bitField0_ = to_bitField0_;
+            onBuilt();
+            return result;
+          }
+          
+          public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject) {
+              return mergeFrom((org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject)other);
+            } else {
+              super.mergeFrom(other);
+              return this;
+            }
+          }
+          
+          public Builder mergeFrom(org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject other) {
+            if (other == org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.getDefaultInstance()) return this;
+            if (other.hasType()) {
+              setType(other.getType());
+            }
+            if (other.hasPosition()) {
+              mergePosition(other.getPosition());
+            }
+            if (other.hasOrientation()) {
+              setOrientation(other.getOrientation());
+            }
+            this.mergeUnknownFields(other.getUnknownFields());
+            return this;
+          }
+          
+          public final boolean isInitialized() {
+            return true;
+          }
+          
+          public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder(
+                this.getUnknownFields());
+            while (true) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  this.setUnknownFields(unknownFields.build());
+                  onChanged();
+                  return this;
+                default: {
+                  if (!parseUnknownField(input, unknownFields,
+                                         extensionRegistry, tag)) {
+                    this.setUnknownFields(unknownFields.build());
+                    onChanged();
+                    return this;
+                  }
+                  break;
+                }
+                case 8: {
+                  bitField0_ |= 0x00000001;
+                  type_ = input.readUInt32();
+                  break;
+                }
+                case 18: {
+                  org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.Builder subBuilder = org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.newBuilder();
+                  if (hasPosition()) {
+                    subBuilder.mergeFrom(getPosition());
+                  }
+                  input.readMessage(subBuilder, extensionRegistry);
+                  setPosition(subBuilder.buildPartial());
+                  break;
+                }
+                case 25: {
+                  bitField0_ |= 0x00000004;
+                  orientation_ = input.readDouble();
+                  break;
+                }
+              }
+            }
+          }
+          
+          private int bitField0_;
+          
+          // optional uint32 type = 1;
+          private int type_ ;
+          public boolean hasType() {
+            return ((bitField0_ & 0x00000001) == 0x00000001);
+          }
+          public int getType() {
+            return type_;
+          }
+          public Builder setType(int value) {
+            bitField0_ |= 0x00000001;
+            type_ = value;
+            onChanged();
+            return this;
+          }
+          public Builder clearType() {
+            bitField0_ = (bitField0_ & ~0x00000001);
+            type_ = 0;
+            onChanged();
+            return this;
+          }
+          
+          // optional .FFdown.VisualSensors.SpaceObject.Point position = 2;
+          private org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point position_ = org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDefaultInstance();
+          private com.google.protobuf.SingleFieldBuilder<
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.Builder, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.PointOrBuilder> positionBuilder_;
+          public boolean hasPosition() {
+            return ((bitField0_ & 0x00000002) == 0x00000002);
+          }
+          public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point getPosition() {
+            if (positionBuilder_ == null) {
+              return position_;
+            } else {
+              return positionBuilder_.getMessage();
+            }
+          }
+          public Builder setPosition(org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point value) {
+            if (positionBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              position_ = value;
+              onChanged();
+            } else {
+              positionBuilder_.setMessage(value);
+            }
+            bitField0_ |= 0x00000002;
+            return this;
+          }
+          public Builder setPosition(
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.Builder builderForValue) {
+            if (positionBuilder_ == null) {
+              position_ = builderForValue.build();
+              onChanged();
+            } else {
+              positionBuilder_.setMessage(builderForValue.build());
+            }
+            bitField0_ |= 0x00000002;
+            return this;
+          }
+          public Builder mergePosition(org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point value) {
+            if (positionBuilder_ == null) {
+              if (((bitField0_ & 0x00000002) == 0x00000002) &&
+                  position_ != org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDefaultInstance()) {
+                position_ =
+                  org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.newBuilder(position_).mergeFrom(value).buildPartial();
+              } else {
+                position_ = value;
+              }
+              onChanged();
+            } else {
+              positionBuilder_.mergeFrom(value);
+            }
+            bitField0_ |= 0x00000002;
+            return this;
+          }
+          public Builder clearPosition() {
+            if (positionBuilder_ == null) {
+              position_ = org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.getDefaultInstance();
+              onChanged();
+            } else {
+              positionBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000002);
+            return this;
+          }
+          public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.Builder getPositionBuilder() {
+            bitField0_ |= 0x00000002;
+            onChanged();
+            return getPositionFieldBuilder().getBuilder();
+          }
+          public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.PointOrBuilder getPositionOrBuilder() {
+            if (positionBuilder_ != null) {
+              return positionBuilder_.getMessageOrBuilder();
+            } else {
+              return position_;
+            }
+          }
+          private com.google.protobuf.SingleFieldBuilder<
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.Builder, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.PointOrBuilder> 
+              getPositionFieldBuilder() {
+            if (positionBuilder_ == null) {
+              positionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                  org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.Builder, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.PointOrBuilder>(
+                      position_,
+                      getParentForChildren(),
+                      isClean());
+              position_ = null;
+            }
+            return positionBuilder_;
+          }
+          
+          // optional double orientation = 3;
+          private double orientation_ ;
+          public boolean hasOrientation() {
+            return ((bitField0_ & 0x00000004) == 0x00000004);
+          }
+          public double getOrientation() {
+            return orientation_;
+          }
+          public Builder setOrientation(double value) {
+            bitField0_ |= 0x00000004;
+            orientation_ = value;
+            onChanged();
+            return this;
+          }
+          public Builder clearOrientation() {
+            bitField0_ = (bitField0_ & ~0x00000004);
+            orientation_ = 0D;
+            onChanged();
+            return this;
+          }
+          
+          // @@protoc_insertion_point(builder_scope:FFdown.VisualSensors.SpaceObject)
+        }
+        
+        static {
+          defaultInstance = new SpaceObject(true);
+          defaultInstance.initFields();
+        }
+        
+        // @@protoc_insertion_point(class_scope:FFdown.VisualSensors.SpaceObject)
+      }
+      
+      // repeated .FFdown.VisualSensors.SpaceObject spaceObjects = 1;
+      public static final int SPACEOBJECTS_FIELD_NUMBER = 1;
+      private java.util.List<org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject> spaceObjects_;
+      public java.util.List<org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject> getSpaceObjectsList() {
+        return spaceObjects_;
+      }
+      public java.util.List<? extends org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder> 
+          getSpaceObjectsOrBuilderList() {
+        return spaceObjects_;
+      }
+      public int getSpaceObjectsCount() {
+        return spaceObjects_.size();
+      }
+      public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject getSpaceObjects(int index) {
+        return spaceObjects_.get(index);
+      }
+      public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder getSpaceObjectsOrBuilder(
+          int index) {
+        return spaceObjects_.get(index);
+      }
+      
+      private void initFields() {
+        spaceObjects_ = java.util.Collections.emptyList();
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+        
+        memoizedIsInitialized = 1;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        for (int i = 0; i < spaceObjects_.size(); i++) {
+          output.writeMessage(1, spaceObjects_.get(i));
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        for (int i = 0; i < spaceObjects_.size(); i++) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, spaceObjects_.get(i));
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+      
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static org.lsfn.nebula.FF.FFdown.VisualSensors parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(org.lsfn.nebula.FF.FFdown.VisualSensors prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements org.lsfn.nebula.FF.FFdown.VisualSensorsOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_descriptor;
+        }
+        
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return org.lsfn.nebula.FF.internal_static_FFdown_VisualSensors_fieldAccessorTable;
+        }
+        
+        // Construct using org.lsfn.nebula.FF.FFdown.VisualSensors.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+        
+        private Builder(BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+            getSpaceObjectsFieldBuilder();
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+        
+        public Builder clear() {
+          super.clear();
+          if (spaceObjectsBuilder_ == null) {
+            spaceObjects_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            spaceObjectsBuilder_.clear();
+          }
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return org.lsfn.nebula.FF.FFdown.VisualSensors.getDescriptor();
+        }
+        
+        public org.lsfn.nebula.FF.FFdown.VisualSensors getDefaultInstanceForType() {
+          return org.lsfn.nebula.FF.FFdown.VisualSensors.getDefaultInstance();
+        }
+        
+        public org.lsfn.nebula.FF.FFdown.VisualSensors build() {
+          org.lsfn.nebula.FF.FFdown.VisualSensors result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+        
+        private org.lsfn.nebula.FF.FFdown.VisualSensors buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          org.lsfn.nebula.FF.FFdown.VisualSensors result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return result;
+        }
+        
+        public org.lsfn.nebula.FF.FFdown.VisualSensors buildPartial() {
+          org.lsfn.nebula.FF.FFdown.VisualSensors result = new org.lsfn.nebula.FF.FFdown.VisualSensors(this);
+          int from_bitField0_ = bitField0_;
+          if (spaceObjectsBuilder_ == null) {
+            if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              spaceObjects_ = java.util.Collections.unmodifiableList(spaceObjects_);
+              bitField0_ = (bitField0_ & ~0x00000001);
+            }
+            result.spaceObjects_ = spaceObjects_;
+          } else {
+            result.spaceObjects_ = spaceObjectsBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof org.lsfn.nebula.FF.FFdown.VisualSensors) {
+            return mergeFrom((org.lsfn.nebula.FF.FFdown.VisualSensors)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(org.lsfn.nebula.FF.FFdown.VisualSensors other) {
+          if (other == org.lsfn.nebula.FF.FFdown.VisualSensors.getDefaultInstance()) return this;
+          if (spaceObjectsBuilder_ == null) {
+            if (!other.spaceObjects_.isEmpty()) {
+              if (spaceObjects_.isEmpty()) {
+                spaceObjects_ = other.spaceObjects_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+              } else {
+                ensureSpaceObjectsIsMutable();
+                spaceObjects_.addAll(other.spaceObjects_);
+              }
+              onChanged();
+            }
+          } else {
+            if (!other.spaceObjects_.isEmpty()) {
+              if (spaceObjectsBuilder_.isEmpty()) {
+                spaceObjectsBuilder_.dispose();
+                spaceObjectsBuilder_ = null;
+                spaceObjects_ = other.spaceObjects_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                spaceObjectsBuilder_ = 
+                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                     getSpaceObjectsFieldBuilder() : null;
+              } else {
+                spaceObjectsBuilder_.addAllMessages(other.spaceObjects_);
+              }
+            }
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public final boolean isInitialized() {
+          return true;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  onChanged();
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder subBuilder = org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.newBuilder();
+                input.readMessage(subBuilder, extensionRegistry);
+                addSpaceObjects(subBuilder.buildPartial());
+                break;
+              }
+            }
+          }
+        }
+        
+        private int bitField0_;
+        
+        // repeated .FFdown.VisualSensors.SpaceObject spaceObjects = 1;
+        private java.util.List<org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject> spaceObjects_ =
+          java.util.Collections.emptyList();
+        private void ensureSpaceObjectsIsMutable() {
+          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+            spaceObjects_ = new java.util.ArrayList<org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject>(spaceObjects_);
+            bitField0_ |= 0x00000001;
+           }
+        }
+        
+        private com.google.protobuf.RepeatedFieldBuilder<
+            org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder> spaceObjectsBuilder_;
+        
+        public java.util.List<org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject> getSpaceObjectsList() {
+          if (spaceObjectsBuilder_ == null) {
+            return java.util.Collections.unmodifiableList(spaceObjects_);
+          } else {
+            return spaceObjectsBuilder_.getMessageList();
+          }
+        }
+        public int getSpaceObjectsCount() {
+          if (spaceObjectsBuilder_ == null) {
+            return spaceObjects_.size();
+          } else {
+            return spaceObjectsBuilder_.getCount();
+          }
+        }
+        public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject getSpaceObjects(int index) {
+          if (spaceObjectsBuilder_ == null) {
+            return spaceObjects_.get(index);
+          } else {
+            return spaceObjectsBuilder_.getMessage(index);
+          }
+        }
+        public Builder setSpaceObjects(
+            int index, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject value) {
+          if (spaceObjectsBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureSpaceObjectsIsMutable();
+            spaceObjects_.set(index, value);
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.setMessage(index, value);
+          }
+          return this;
+        }
+        public Builder setSpaceObjects(
+            int index, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder builderForValue) {
+          if (spaceObjectsBuilder_ == null) {
+            ensureSpaceObjectsIsMutable();
+            spaceObjects_.set(index, builderForValue.build());
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.setMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        public Builder addSpaceObjects(org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject value) {
+          if (spaceObjectsBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureSpaceObjectsIsMutable();
+            spaceObjects_.add(value);
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.addMessage(value);
+          }
+          return this;
+        }
+        public Builder addSpaceObjects(
+            int index, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject value) {
+          if (spaceObjectsBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureSpaceObjectsIsMutable();
+            spaceObjects_.add(index, value);
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.addMessage(index, value);
+          }
+          return this;
+        }
+        public Builder addSpaceObjects(
+            org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder builderForValue) {
+          if (spaceObjectsBuilder_ == null) {
+            ensureSpaceObjectsIsMutable();
+            spaceObjects_.add(builderForValue.build());
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.addMessage(builderForValue.build());
+          }
+          return this;
+        }
+        public Builder addSpaceObjects(
+            int index, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder builderForValue) {
+          if (spaceObjectsBuilder_ == null) {
+            ensureSpaceObjectsIsMutable();
+            spaceObjects_.add(index, builderForValue.build());
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.addMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        public Builder addAllSpaceObjects(
+            java.lang.Iterable<? extends org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject> values) {
+          if (spaceObjectsBuilder_ == null) {
+            ensureSpaceObjectsIsMutable();
+            super.addAll(values, spaceObjects_);
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.addAllMessages(values);
+          }
+          return this;
+        }
+        public Builder clearSpaceObjects() {
+          if (spaceObjectsBuilder_ == null) {
+            spaceObjects_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000001);
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.clear();
+          }
+          return this;
+        }
+        public Builder removeSpaceObjects(int index) {
+          if (spaceObjectsBuilder_ == null) {
+            ensureSpaceObjectsIsMutable();
+            spaceObjects_.remove(index);
+            onChanged();
+          } else {
+            spaceObjectsBuilder_.remove(index);
+          }
+          return this;
+        }
+        public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder getSpaceObjectsBuilder(
+            int index) {
+          return getSpaceObjectsFieldBuilder().getBuilder(index);
+        }
+        public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder getSpaceObjectsOrBuilder(
+            int index) {
+          if (spaceObjectsBuilder_ == null) {
+            return spaceObjects_.get(index);  } else {
+            return spaceObjectsBuilder_.getMessageOrBuilder(index);
+          }
+        }
+        public java.util.List<? extends org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder> 
+             getSpaceObjectsOrBuilderList() {
+          if (spaceObjectsBuilder_ != null) {
+            return spaceObjectsBuilder_.getMessageOrBuilderList();
+          } else {
+            return java.util.Collections.unmodifiableList(spaceObjects_);
+          }
+        }
+        public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder addSpaceObjectsBuilder() {
+          return getSpaceObjectsFieldBuilder().addBuilder(
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.getDefaultInstance());
+        }
+        public org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder addSpaceObjectsBuilder(
+            int index) {
+          return getSpaceObjectsFieldBuilder().addBuilder(
+              index, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.getDefaultInstance());
+        }
+        public java.util.List<org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder> 
+             getSpaceObjectsBuilderList() {
+          return getSpaceObjectsFieldBuilder().getBuilderList();
+        }
+        private com.google.protobuf.RepeatedFieldBuilder<
+            org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder> 
+            getSpaceObjectsFieldBuilder() {
+          if (spaceObjectsBuilder_ == null) {
+            spaceObjectsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+                org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder, org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObjectOrBuilder>(
+                    spaceObjects_,
+                    ((bitField0_ & 0x00000001) == 0x00000001),
+                    getParentForChildren(),
+                    isClean());
+            spaceObjects_ = null;
+          }
+          return spaceObjectsBuilder_;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:FFdown.VisualSensors)
+      }
+      
+      static {
+        defaultInstance = new VisualSensors(true);
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:FFdown.VisualSensors)
     }
     
     private int bitField0_;
-    // optional .FFdown.Reset reset = 1;
-    public static final int RESET_FIELD_NUMBER = 1;
-    private org.lsfn.nebula.FF.FFdown.Reset reset_;
-    public boolean hasReset() {
+    // optional .FFdown.Lobby lobby = 1;
+    public static final int LOBBY_FIELD_NUMBER = 1;
+    private org.lsfn.nebula.FF.FFdown.Lobby lobby_;
+    public boolean hasLobby() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public org.lsfn.nebula.FF.FFdown.Reset getReset() {
-      return reset_;
+    public org.lsfn.nebula.FF.FFdown.Lobby getLobby() {
+      return lobby_;
     }
-    public org.lsfn.nebula.FF.FFdown.ResetOrBuilder getResetOrBuilder() {
-      return reset_;
+    public org.lsfn.nebula.FF.FFdown.LobbyOrBuilder getLobbyOrBuilder() {
+      return lobby_;
+    }
+    
+    // optional .FFdown.VisualSensors visualSensors = 2;
+    public static final int VISUALSENSORS_FIELD_NUMBER = 2;
+    private org.lsfn.nebula.FF.FFdown.VisualSensors visualSensors_;
+    public boolean hasVisualSensors() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public org.lsfn.nebula.FF.FFdown.VisualSensors getVisualSensors() {
+      return visualSensors_;
+    }
+    public org.lsfn.nebula.FF.FFdown.VisualSensorsOrBuilder getVisualSensorsOrBuilder() {
+      return visualSensors_;
     }
     
     private void initFields() {
-      reset_ = org.lsfn.nebula.FF.FFdown.Reset.getDefaultInstance();
+      lobby_ = org.lsfn.nebula.FF.FFdown.Lobby.getDefaultInstance();
+      visualSensors_ = org.lsfn.nebula.FF.FFdown.VisualSensors.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2402,7 +4166,10 @@ public final class FF {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, reset_);
+        output.writeMessage(1, lobby_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, visualSensors_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2415,7 +4182,11 @@ public final class FF {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, reset_);
+          .computeMessageSize(1, lobby_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, visualSensors_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2533,7 +4304,8 @@ public final class FF {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getResetFieldBuilder();
+          getLobbyFieldBuilder();
+          getVisualSensorsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2542,12 +4314,18 @@ public final class FF {
       
       public Builder clear() {
         super.clear();
-        if (resetBuilder_ == null) {
-          reset_ = org.lsfn.nebula.FF.FFdown.Reset.getDefaultInstance();
+        if (lobbyBuilder_ == null) {
+          lobby_ = org.lsfn.nebula.FF.FFdown.Lobby.getDefaultInstance();
         } else {
-          resetBuilder_.clear();
+          lobbyBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        if (visualSensorsBuilder_ == null) {
+          visualSensors_ = org.lsfn.nebula.FF.FFdown.VisualSensors.getDefaultInstance();
+        } else {
+          visualSensorsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -2589,10 +4367,18 @@ public final class FF {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        if (resetBuilder_ == null) {
-          result.reset_ = reset_;
+        if (lobbyBuilder_ == null) {
+          result.lobby_ = lobby_;
         } else {
-          result.reset_ = resetBuilder_.build();
+          result.lobby_ = lobbyBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (visualSensorsBuilder_ == null) {
+          result.visualSensors_ = visualSensors_;
+        } else {
+          result.visualSensors_ = visualSensorsBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -2610,8 +4396,11 @@ public final class FF {
       
       public Builder mergeFrom(org.lsfn.nebula.FF.FFdown other) {
         if (other == org.lsfn.nebula.FF.FFdown.getDefaultInstance()) return this;
-        if (other.hasReset()) {
-          mergeReset(other.getReset());
+        if (other.hasLobby()) {
+          mergeLobby(other.getLobby());
+        }
+        if (other.hasVisualSensors()) {
+          mergeVisualSensors(other.getVisualSensors());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2645,12 +4434,21 @@ public final class FF {
               break;
             }
             case 10: {
-              org.lsfn.nebula.FF.FFdown.Reset.Builder subBuilder = org.lsfn.nebula.FF.FFdown.Reset.newBuilder();
-              if (hasReset()) {
-                subBuilder.mergeFrom(getReset());
+              org.lsfn.nebula.FF.FFdown.Lobby.Builder subBuilder = org.lsfn.nebula.FF.FFdown.Lobby.newBuilder();
+              if (hasLobby()) {
+                subBuilder.mergeFrom(getLobby());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setReset(subBuilder.buildPartial());
+              setLobby(subBuilder.buildPartial());
+              break;
+            }
+            case 18: {
+              org.lsfn.nebula.FF.FFdown.VisualSensors.Builder subBuilder = org.lsfn.nebula.FF.FFdown.VisualSensors.newBuilder();
+              if (hasVisualSensors()) {
+                subBuilder.mergeFrom(getVisualSensors());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setVisualSensors(subBuilder.buildPartial());
               break;
             }
           }
@@ -2659,94 +4457,184 @@ public final class FF {
       
       private int bitField0_;
       
-      // optional .FFdown.Reset reset = 1;
-      private org.lsfn.nebula.FF.FFdown.Reset reset_ = org.lsfn.nebula.FF.FFdown.Reset.getDefaultInstance();
+      // optional .FFdown.Lobby lobby = 1;
+      private org.lsfn.nebula.FF.FFdown.Lobby lobby_ = org.lsfn.nebula.FF.FFdown.Lobby.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          org.lsfn.nebula.FF.FFdown.Reset, org.lsfn.nebula.FF.FFdown.Reset.Builder, org.lsfn.nebula.FF.FFdown.ResetOrBuilder> resetBuilder_;
-      public boolean hasReset() {
+          org.lsfn.nebula.FF.FFdown.Lobby, org.lsfn.nebula.FF.FFdown.Lobby.Builder, org.lsfn.nebula.FF.FFdown.LobbyOrBuilder> lobbyBuilder_;
+      public boolean hasLobby() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public org.lsfn.nebula.FF.FFdown.Reset getReset() {
-        if (resetBuilder_ == null) {
-          return reset_;
+      public org.lsfn.nebula.FF.FFdown.Lobby getLobby() {
+        if (lobbyBuilder_ == null) {
+          return lobby_;
         } else {
-          return resetBuilder_.getMessage();
+          return lobbyBuilder_.getMessage();
         }
       }
-      public Builder setReset(org.lsfn.nebula.FF.FFdown.Reset value) {
-        if (resetBuilder_ == null) {
+      public Builder setLobby(org.lsfn.nebula.FF.FFdown.Lobby value) {
+        if (lobbyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          reset_ = value;
+          lobby_ = value;
           onChanged();
         } else {
-          resetBuilder_.setMessage(value);
+          lobbyBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000001;
         return this;
       }
-      public Builder setReset(
-          org.lsfn.nebula.FF.FFdown.Reset.Builder builderForValue) {
-        if (resetBuilder_ == null) {
-          reset_ = builderForValue.build();
+      public Builder setLobby(
+          org.lsfn.nebula.FF.FFdown.Lobby.Builder builderForValue) {
+        if (lobbyBuilder_ == null) {
+          lobby_ = builderForValue.build();
           onChanged();
         } else {
-          resetBuilder_.setMessage(builderForValue.build());
+          lobbyBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000001;
         return this;
       }
-      public Builder mergeReset(org.lsfn.nebula.FF.FFdown.Reset value) {
-        if (resetBuilder_ == null) {
+      public Builder mergeLobby(org.lsfn.nebula.FF.FFdown.Lobby value) {
+        if (lobbyBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              reset_ != org.lsfn.nebula.FF.FFdown.Reset.getDefaultInstance()) {
-            reset_ =
-              org.lsfn.nebula.FF.FFdown.Reset.newBuilder(reset_).mergeFrom(value).buildPartial();
+              lobby_ != org.lsfn.nebula.FF.FFdown.Lobby.getDefaultInstance()) {
+            lobby_ =
+              org.lsfn.nebula.FF.FFdown.Lobby.newBuilder(lobby_).mergeFrom(value).buildPartial();
           } else {
-            reset_ = value;
+            lobby_ = value;
           }
           onChanged();
         } else {
-          resetBuilder_.mergeFrom(value);
+          lobbyBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000001;
         return this;
       }
-      public Builder clearReset() {
-        if (resetBuilder_ == null) {
-          reset_ = org.lsfn.nebula.FF.FFdown.Reset.getDefaultInstance();
+      public Builder clearLobby() {
+        if (lobbyBuilder_ == null) {
+          lobby_ = org.lsfn.nebula.FF.FFdown.Lobby.getDefaultInstance();
           onChanged();
         } else {
-          resetBuilder_.clear();
+          lobbyBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
-      public org.lsfn.nebula.FF.FFdown.Reset.Builder getResetBuilder() {
+      public org.lsfn.nebula.FF.FFdown.Lobby.Builder getLobbyBuilder() {
         bitField0_ |= 0x00000001;
         onChanged();
-        return getResetFieldBuilder().getBuilder();
+        return getLobbyFieldBuilder().getBuilder();
       }
-      public org.lsfn.nebula.FF.FFdown.ResetOrBuilder getResetOrBuilder() {
-        if (resetBuilder_ != null) {
-          return resetBuilder_.getMessageOrBuilder();
+      public org.lsfn.nebula.FF.FFdown.LobbyOrBuilder getLobbyOrBuilder() {
+        if (lobbyBuilder_ != null) {
+          return lobbyBuilder_.getMessageOrBuilder();
         } else {
-          return reset_;
+          return lobby_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          org.lsfn.nebula.FF.FFdown.Reset, org.lsfn.nebula.FF.FFdown.Reset.Builder, org.lsfn.nebula.FF.FFdown.ResetOrBuilder> 
-          getResetFieldBuilder() {
-        if (resetBuilder_ == null) {
-          resetBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.lsfn.nebula.FF.FFdown.Reset, org.lsfn.nebula.FF.FFdown.Reset.Builder, org.lsfn.nebula.FF.FFdown.ResetOrBuilder>(
-                  reset_,
+          org.lsfn.nebula.FF.FFdown.Lobby, org.lsfn.nebula.FF.FFdown.Lobby.Builder, org.lsfn.nebula.FF.FFdown.LobbyOrBuilder> 
+          getLobbyFieldBuilder() {
+        if (lobbyBuilder_ == null) {
+          lobbyBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.lsfn.nebula.FF.FFdown.Lobby, org.lsfn.nebula.FF.FFdown.Lobby.Builder, org.lsfn.nebula.FF.FFdown.LobbyOrBuilder>(
+                  lobby_,
                   getParentForChildren(),
                   isClean());
-          reset_ = null;
+          lobby_ = null;
         }
-        return resetBuilder_;
+        return lobbyBuilder_;
+      }
+      
+      // optional .FFdown.VisualSensors visualSensors = 2;
+      private org.lsfn.nebula.FF.FFdown.VisualSensors visualSensors_ = org.lsfn.nebula.FF.FFdown.VisualSensors.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.lsfn.nebula.FF.FFdown.VisualSensors, org.lsfn.nebula.FF.FFdown.VisualSensors.Builder, org.lsfn.nebula.FF.FFdown.VisualSensorsOrBuilder> visualSensorsBuilder_;
+      public boolean hasVisualSensors() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public org.lsfn.nebula.FF.FFdown.VisualSensors getVisualSensors() {
+        if (visualSensorsBuilder_ == null) {
+          return visualSensors_;
+        } else {
+          return visualSensorsBuilder_.getMessage();
+        }
+      }
+      public Builder setVisualSensors(org.lsfn.nebula.FF.FFdown.VisualSensors value) {
+        if (visualSensorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          visualSensors_ = value;
+          onChanged();
+        } else {
+          visualSensorsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder setVisualSensors(
+          org.lsfn.nebula.FF.FFdown.VisualSensors.Builder builderForValue) {
+        if (visualSensorsBuilder_ == null) {
+          visualSensors_ = builderForValue.build();
+          onChanged();
+        } else {
+          visualSensorsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder mergeVisualSensors(org.lsfn.nebula.FF.FFdown.VisualSensors value) {
+        if (visualSensorsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              visualSensors_ != org.lsfn.nebula.FF.FFdown.VisualSensors.getDefaultInstance()) {
+            visualSensors_ =
+              org.lsfn.nebula.FF.FFdown.VisualSensors.newBuilder(visualSensors_).mergeFrom(value).buildPartial();
+          } else {
+            visualSensors_ = value;
+          }
+          onChanged();
+        } else {
+          visualSensorsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder clearVisualSensors() {
+        if (visualSensorsBuilder_ == null) {
+          visualSensors_ = org.lsfn.nebula.FF.FFdown.VisualSensors.getDefaultInstance();
+          onChanged();
+        } else {
+          visualSensorsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      public org.lsfn.nebula.FF.FFdown.VisualSensors.Builder getVisualSensorsBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getVisualSensorsFieldBuilder().getBuilder();
+      }
+      public org.lsfn.nebula.FF.FFdown.VisualSensorsOrBuilder getVisualSensorsOrBuilder() {
+        if (visualSensorsBuilder_ != null) {
+          return visualSensorsBuilder_.getMessageOrBuilder();
+        } else {
+          return visualSensors_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          org.lsfn.nebula.FF.FFdown.VisualSensors, org.lsfn.nebula.FF.FFdown.VisualSensors.Builder, org.lsfn.nebula.FF.FFdown.VisualSensorsOrBuilder> 
+          getVisualSensorsFieldBuilder() {
+        if (visualSensorsBuilder_ == null) {
+          visualSensorsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.lsfn.nebula.FF.FFdown.VisualSensors, org.lsfn.nebula.FF.FFdown.VisualSensors.Builder, org.lsfn.nebula.FF.FFdown.VisualSensorsOrBuilder>(
+                  visualSensors_,
+                  getParentForChildren(),
+                  isClean());
+          visualSensors_ = null;
+        }
+        return visualSensorsBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:FFdown)
@@ -2771,25 +4659,40 @@ public final class FF {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_FFup_Lobby_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_FFup_Lobby_Connection_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_FFup_Lobby_Connection_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_FFup_RCon_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_FFup_RCon_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_FFup_Piloting_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_FFup_Piloting_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_FFdown_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_FFdown_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_FFdown_Reset_descriptor;
+    internal_static_FFdown_Lobby_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_FFdown_Reset_fieldAccessorTable;
+      internal_static_FFdown_Lobby_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_FFdown_VisualSensors_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_FFdown_VisualSensors_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_FFdown_VisualSensors_SpaceObject_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_FFdown_VisualSensors_SpaceObject_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_FFdown_VisualSensors_SpaceObject_Point_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_FFdown_VisualSensors_SpaceObject_Point_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2799,17 +4702,24 @@ public final class FF {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022proto_src/FF.proto\"\265\002\n\004FFup\022\032\n\005lobby\030\001" +
+      "\n\022proto_src/FF.proto\"\260\002\n\004FFup\022\032\n\005lobby\030\001" +
       " \001(\0132\013.FFup.Lobby\022\030\n\004rcon\030\002 \001(\0132\n.FFup.R" +
-      "Con\032\335\001\n\005Lobby\022\022\n\nreadyState\030\001 \001(\010\022*\n\ncon" +
-      "nection\030\002 \001(\0132\026.FFup.Lobby.Connection\032b\n" +
-      "\nConnection\0228\n\021connectionCommand\030\001 \001(\0162\035" +
-      ".FFup.Lobby.ConnectionCommand\022\014\n\004host\030\002 " +
-      "\001(\t\022\014\n\004port\030\003 \001(\r\"0\n\021ConnectionCommand\022\013" +
-      "\n\007CONNECT\020\000\022\016\n\nDISCONNECT\020\001\032\027\n\004RCon\022\017\n\007c" +
-      "ommand\030\001 \001(\t\">\n\006FFdown\022\034\n\005reset\030\001 \001(\0132\r." +
-      "FFdown.Reset\032\026\n\005Reset\022\r\n\005reset\030\001 \001(\rB\025\n\017",
-      "org.lsfn.nebulaB\002FF"
+      "Con\022 \n\010piloting\030\003 \001(\0132\016.FFup.Piloting\032-\n" +
+      "\005Lobby\022\022\n\nreadyState\030\001 \001(\010\022\020\n\010shipName\030\002" +
+      " \001(\t\032\027\n\004RCon\022\017\n\007command\030\001 \001(\t\032\207\001\n\010Piloti" +
+      "ng\022\020\n\010turnAnti\030\001 \001(\010\022\021\n\tturnClock\030\002 \001(\010\022" +
+      "\022\n\nthrustLeft\030\003 \001(\010\022\023\n\013thrustRight\030\004 \001(\010" +
+      "\022\025\n\rthrustForward\030\005 \001(\010\022\026\n\016thrustBackwar" +
+      "d\030\006 \001(\010\"\335\002\n\006FFdown\022\034\n\005lobby\030\001 \001(\0132\r.FFdo" +
+      "wn.Lobby\022,\n\rvisualSensors\030\002 \001(\0132\025.FFdown",
+      ".VisualSensors\032/\n\005Lobby\022\021\n\tshipNames\030\001 \003" +
+      "(\t\022\023\n\013gameStarted\030\002 \001(\010\032\325\001\n\rVisualSensor" +
+      "s\0227\n\014spaceObjects\030\001 \003(\0132!.FFdown.VisualS" +
+      "ensors.SpaceObject\032\212\001\n\013SpaceObject\022\014\n\004ty" +
+      "pe\030\001 \001(\r\0229\n\010position\030\002 \001(\0132\'.FFdown.Visu" +
+      "alSensors.SpaceObject.Point\022\023\n\013orientati" +
+      "on\030\003 \001(\001\032\035\n\005Point\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002 \001(\001B" +
+      "\025\n\017org.lsfn.nebulaB\002FF"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -2821,7 +4731,7 @@ public final class FF {
           internal_static_FFup_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_FFup_descriptor,
-              new java.lang.String[] { "Lobby", "Rcon", },
+              new java.lang.String[] { "Lobby", "Rcon", "Piloting", },
               org.lsfn.nebula.FF.FFup.class,
               org.lsfn.nebula.FF.FFup.Builder.class);
           internal_static_FFup_Lobby_descriptor =
@@ -2829,17 +4739,9 @@ public final class FF {
           internal_static_FFup_Lobby_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_FFup_Lobby_descriptor,
-              new java.lang.String[] { "ReadyState", "Connection", },
+              new java.lang.String[] { "ReadyState", "ShipName", },
               org.lsfn.nebula.FF.FFup.Lobby.class,
               org.lsfn.nebula.FF.FFup.Lobby.Builder.class);
-          internal_static_FFup_Lobby_Connection_descriptor =
-            internal_static_FFup_Lobby_descriptor.getNestedTypes().get(0);
-          internal_static_FFup_Lobby_Connection_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_FFup_Lobby_Connection_descriptor,
-              new java.lang.String[] { "ConnectionCommand", "Host", "Port", },
-              org.lsfn.nebula.FF.FFup.Lobby.Connection.class,
-              org.lsfn.nebula.FF.FFup.Lobby.Connection.Builder.class);
           internal_static_FFup_RCon_descriptor =
             internal_static_FFup_descriptor.getNestedTypes().get(1);
           internal_static_FFup_RCon_fieldAccessorTable = new
@@ -2848,22 +4750,54 @@ public final class FF {
               new java.lang.String[] { "Command", },
               org.lsfn.nebula.FF.FFup.RCon.class,
               org.lsfn.nebula.FF.FFup.RCon.Builder.class);
+          internal_static_FFup_Piloting_descriptor =
+            internal_static_FFup_descriptor.getNestedTypes().get(2);
+          internal_static_FFup_Piloting_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_FFup_Piloting_descriptor,
+              new java.lang.String[] { "TurnAnti", "TurnClock", "ThrustLeft", "ThrustRight", "ThrustForward", "ThrustBackward", },
+              org.lsfn.nebula.FF.FFup.Piloting.class,
+              org.lsfn.nebula.FF.FFup.Piloting.Builder.class);
           internal_static_FFdown_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_FFdown_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_FFdown_descriptor,
-              new java.lang.String[] { "Reset", },
+              new java.lang.String[] { "Lobby", "VisualSensors", },
               org.lsfn.nebula.FF.FFdown.class,
               org.lsfn.nebula.FF.FFdown.Builder.class);
-          internal_static_FFdown_Reset_descriptor =
+          internal_static_FFdown_Lobby_descriptor =
             internal_static_FFdown_descriptor.getNestedTypes().get(0);
-          internal_static_FFdown_Reset_fieldAccessorTable = new
+          internal_static_FFdown_Lobby_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_FFdown_Reset_descriptor,
-              new java.lang.String[] { "Reset", },
-              org.lsfn.nebula.FF.FFdown.Reset.class,
-              org.lsfn.nebula.FF.FFdown.Reset.Builder.class);
+              internal_static_FFdown_Lobby_descriptor,
+              new java.lang.String[] { "ShipNames", "GameStarted", },
+              org.lsfn.nebula.FF.FFdown.Lobby.class,
+              org.lsfn.nebula.FF.FFdown.Lobby.Builder.class);
+          internal_static_FFdown_VisualSensors_descriptor =
+            internal_static_FFdown_descriptor.getNestedTypes().get(1);
+          internal_static_FFdown_VisualSensors_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_FFdown_VisualSensors_descriptor,
+              new java.lang.String[] { "SpaceObjects", },
+              org.lsfn.nebula.FF.FFdown.VisualSensors.class,
+              org.lsfn.nebula.FF.FFdown.VisualSensors.Builder.class);
+          internal_static_FFdown_VisualSensors_SpaceObject_descriptor =
+            internal_static_FFdown_VisualSensors_descriptor.getNestedTypes().get(0);
+          internal_static_FFdown_VisualSensors_SpaceObject_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_FFdown_VisualSensors_SpaceObject_descriptor,
+              new java.lang.String[] { "Type", "Position", "Orientation", },
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.class,
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Builder.class);
+          internal_static_FFdown_VisualSensors_SpaceObject_Point_descriptor =
+            internal_static_FFdown_VisualSensors_SpaceObject_descriptor.getNestedTypes().get(0);
+          internal_static_FFdown_VisualSensors_SpaceObject_Point_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_FFdown_VisualSensors_SpaceObject_Point_descriptor,
+              new java.lang.String[] { "X", "Y", },
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.class,
+              org.lsfn.nebula.FF.FFdown.VisualSensors.SpaceObject.Point.Builder.class);
           return null;
         }
       };

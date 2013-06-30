@@ -3,34 +3,50 @@ option java_outer_classname = "FF";
 
 message FFup {
     message Lobby {
-        enum ConnectionCommand {
-            CONNECT = 0;
-            DISCONNECT = 1;         
-        }
-    
-        message Connection {
-            optional ConnectionCommand connectionCommand = 1;
-            optional string host = 2;
-            optional uint32 port = 3;
-        }
-    
         optional bool readyState = 1;
-        optional Connection connection = 2;
+        optional string shipName = 2;
     }
     
     message RCon {
         optional string command = 1;
     }
     
+    message Piloting {
+        optional bool turnAnti = 1;
+        optional bool turnClock = 2;
+        optional bool thrustLeft = 3;
+        optional bool thrustRight = 4;
+        optional bool thrustForward = 5;
+        optional bool thrustBackward = 6;
+    }
+    
     optional Lobby lobby = 1;
     optional RCon rcon = 2;
+    optional Piloting piloting = 3;
 }
 
 message FFdown {
-    // The reset message would ideally just be a tag, but protocol buffers don't seem to do this.
-    message Reset {
-        optional uint32 reset = 1;
+    message Lobby {
+        repeated string shipNames = 1;
+        optional bool gameStarted = 2;
     }
 
-    optional Reset reset = 1;
+    message VisualSensors {
+        message SpaceObject {
+            message Point {
+                optional double x = 1;
+                optional double y = 2;
+            }
+            
+            optional uint32 type = 1;
+            optional Point position = 2;
+            // orientation is in radians
+            optional double orientation = 3; 
+        }
+        
+        repeated SpaceObject spaceObjects = 1;
+    }
+
+    optional Lobby lobby = 1;
+    optional VisualSensors visualSensors = 2;
 }
