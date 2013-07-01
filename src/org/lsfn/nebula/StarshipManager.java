@@ -27,6 +27,7 @@ public class StarshipManager {
     public void addStarship(UUID id) {
         if(!starships.containsKey(id)) {
             starships.put(id, new StarshipInfo(id));
+            this.shipListChanged = true;
         }
     }
     
@@ -66,17 +67,29 @@ public class StarshipManager {
      * @return
      */
     public FFdown.Lobby generateOutput(UUID id) {
-        FFdown.Lobby.Builder builder = FFdown.Lobby.newBuilder();
         StarshipInfo starshipInfo = starships.get(id);
-        if(this.shipListChanged || this.allReadyChanged || starshipInfo.isNew()) {
+        if(this.shipListChanged || this.allReadyChanged || starshipInfo.isNew() || starshipInfo.isShipNameChanged() || starshipInfo.isReadyChanged()) {
+            FFdown.Lobby.Builder builder = FFdown.Lobby.newBuilder();
             if(this.shipListChanged || starshipInfo.isNew()) {
                 for(UUID shipID : this.starships.keySet()) {
-                    builder.addShipNames(this.starships.get(shipID).getShipName());
+                    if(!shipID.equals(id)) {
+                        builder.addShipsInGame(this.starships.get(shipID).getShipName());
+                    }
                 }
             }
+                
             if(this.allReadyChanged || starshipInfo.isNew()) {
                 builder.setGameStarted(this.allReady);
             }
+            
+            if(starshipInfo.isReadyChanged() || starshipInfo.isNew()) {
+                builder.setReadyState(starshipInfo.isReady());
+            }
+            
+            if(starshipInfo.isShipNameChanged() || starshipInfo.isNew()) {
+                builder.setShipName(starshipInfo.getShipName());
+            }
+            
             return builder.build();
         }
         return null;

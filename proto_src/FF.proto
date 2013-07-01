@@ -20,19 +20,26 @@ message FFup {
         optional bool thrustBackward = 6;
     }
     
-    optional Lobby lobby = 1;
-    optional RCon rcon = 2;
+    optional RCon rcon = 1;    
+    optional Lobby lobby = 2;
     optional Piloting piloting = 3;
 }
 
 message FFdown {
     message Lobby {
-        repeated string shipNames = 1;
-        optional bool gameStarted = 2;
+        optional bool readyState = 1;
+        optional string shipName = 2;
+        repeated string shipsInGame = 3;
+        optional bool gameStarted = 4;
     }
 
     message VisualSensors {
         message SpaceObject {
+            enum Type {
+                SHIP = 0;
+                ASTEROID = 1;         
+            }
+            
             message Point {
                 optional double x = 1;
                 optional double y = 2;
