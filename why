@@ -1,3 +1,0 @@
-protoc -I. --java_out=src/ proto_src/*.proto
-javac -cp lib/dyn4j-v3.1.4.jar:lib/protobuf-java-2.5.0.jar -d build -sourcepath src src/org/lsfn/nebula/*.java
-jar cfm nebula.jar Manifest.txt lib -C build .
