@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Created-By: Lukeus_Maximus
-Class-Path: lib/protobuf-java-2.5.0.jar
+Class-Path: lib/protobuf-java-2.5.0.jar lib/dyn4j-v3.1.4.jar
 Main-Class: org.lsfn.nebula.Nebula

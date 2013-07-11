@@ -9,10 +9,12 @@ import org.lsfn.nebula.StarshipServer.ServerStatus;
 public class Nebula {
 
     private StarshipServer starshipServer;
+    private GameManager gameManager;
     private boolean keepGoing;
     
     public Nebula() {
         this.starshipServer = null;
+        this.gameManager = null;
         this.keepGoing = true;
     }
     
@@ -20,6 +22,8 @@ public class Nebula {
         this.starshipServer = new StarshipServer();
         this.starshipServer.listen();
         this.starshipServer.start();
+        this.gameManager = new GameManager(starshipServer);
+        this.gameManager.start();
     }
     
     private void printHelp() {
