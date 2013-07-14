@@ -70,6 +70,7 @@ public class StarshipListener {
         if(this.listenerStatus == ListenerStatus.CONNECTED) {
             try {
                 downMessage.writeDelimitedTo(this.starshipOutput);
+                this.starshipOutput.flush();
             } catch (IOException e) {
                 e.printStackTrace();
                 this.listenerStatus = ListenerStatus.DISCONNECTED;
