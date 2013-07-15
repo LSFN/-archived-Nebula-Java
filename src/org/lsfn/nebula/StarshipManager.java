@@ -90,6 +90,9 @@ public class StarshipManager {
                 builder.setShipName(starshipInfo.getShipName());
             }
             
+            starshipInfo.noLongerNew();
+            starshipInfo.resetFlags();
+            
             return builder.build();
         }
         return null;

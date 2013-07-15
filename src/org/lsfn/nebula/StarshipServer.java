@@ -13,9 +13,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.lsfn.nebula.StarshipListener;
+import org.lsfn.nebula.FF.FFdown;
+import org.lsfn.nebula.FF.FFup;
 import org.lsfn.nebula.StarshipListener.ListenerStatus;
-import org.lsfn.nebula.FF.*;
 
 /**
  * Creates a listener for each connection.
@@ -129,6 +129,16 @@ public class StarshipServer extends Thread {
         StarshipListener listener = getListener(id);
         if(listener != null) {
             listener.sendMessageToStarship(downMessage);
+        }
+    }
+    
+    public void sendMessageToAllStarships(FFdown downMessage) {
+        Set<UUID> ids = getListenerIDs();
+        for(UUID id: ids) {
+            StarshipListener listener = getListener(id);
+            if(listener != null) {
+                listener.sendMessageToStarship(downMessage);
+            }
         }
     }
     
