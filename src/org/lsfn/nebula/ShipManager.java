@@ -1,6 +1,8 @@
 package org.lsfn.nebula;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,11 +18,13 @@ import org.lsfn.nebula.FF.FFup;
  */
 public class ShipManager {
     
+    private AsteroidManager asteroidManager;
     private World world;
     private Map<UUID, Ship> ships;
     private double nextX;
     
-    public ShipManager(World world) {
+    public ShipManager(World world, AsteroidManager asteroidManager) {
+        this.asteroidManager = asteroidManager;
         this.world = world;
         this.ships = new HashMap<UUID, Ship>();
         this.nextX = 0;
@@ -44,12 +48,12 @@ public class ShipManager {
     
     public FFdown.VisualSensors generateOutput(UUID id) {
         Ship ship = this.ships.get(id);
-        Map<UUID, Vector2> shipPositions = new HashMap<UUID, Vector2>();
+        List<Ship> ships = new ArrayList<Ship>();
         for(UUID id2 : this.ships.keySet()) {
             if(!id.equals(id2)) {
-                shipPositions.put(id2, this.ships.get(id2).getPosition());
+                ships.add(this.ships.get(id2));
             }
         }
-        return ship.generateOutput(shipPositions);
+        return ship.generateOutput(ships, this.asteroidManager.getAsteroids());
     }
 }

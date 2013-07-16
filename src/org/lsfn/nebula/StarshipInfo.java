@@ -26,11 +26,11 @@ public class StarshipInfo {
     }
 
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
     public String getShipName() {
-        return shipName;
+        return this.shipName;
     }
 
     public void setShipName(String shipName) {
@@ -39,7 +39,7 @@ public class StarshipInfo {
     }
 
     public boolean isReady() {
-        return ready;
+        return this.ready;
     }
 
     public void setReady(boolean ready) {
@@ -56,11 +56,11 @@ public class StarshipInfo {
     }
     
     public boolean isShipNameChanged() {
-        return shipNameChanged;
+        return this.shipNameChanged;
     }
 
     public boolean isReadyChanged() {
-        return readyChanged;
+        return this.readyChanged;
     }
 
     public void resetFlags() {

@@ -107,11 +107,13 @@ public class StarshipServer extends Thread {
     }
     
     public synchronized Map<UUID, List<FFup>> receiveMessagesFromConsoles() {
-        Map<UUID, List<FFup>> result = new HashMap<UUID, List<FFup>>();
-        for(UUID id : this.buffers.keySet()) {
-            List<FFup> buffer = this.buffers.get(id);
-            result.put(id, new ArrayList<FFup>(buffer));
+        Map<UUID, List<FFup>> result = this.buffers;
+        
+        this.buffers = new HashMap<UUID, List<FFup>>();
+        for(UUID id : result.keySet()) {
+            this.buffers.put(id, new ArrayList<FFup>());
         }
+        
         return result;
     }
     

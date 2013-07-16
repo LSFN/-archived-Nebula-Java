@@ -32,6 +32,7 @@ public class StarshipListener {
         this.starshipSocket = consoleSocket;
         this.starshipInput = null;
         this.starshipOutput = null;
+        this.listenerStatus = ListenerStatus.NOT_SETUP;
     }
     
     public ListenerStatus getListenerStatus() {
@@ -83,7 +84,9 @@ public class StarshipListener {
     public List<FFup> receiveMessagesFromStarship() {
         List<FFup> upMessages = new ArrayList<FFup>();
         if(this.listenerStatus == ListenerStatus.NOT_SETUP) {
-            if(!setupStreams()) {
+            if(setupStreams()) {
+                this.listenerStatus = ListenerStatus.CONNECTED;
+            } else {
                 this.listenerStatus = ListenerStatus.DISCONNECTED;
             }
         }

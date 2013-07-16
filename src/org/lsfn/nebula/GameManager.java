@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.dyn4j.dynamics.Settings;
 import org.dyn4j.dynamics.World;
+import org.dyn4j.geometry.Vector2;
 import org.lsfn.nebula.FF.*;
 
 /**
@@ -20,16 +21,19 @@ public class GameManager extends Thread {
     private StarshipServer starshipServer;
     private StarshipManager starshipManager;
     private ShipManager shipManager;
+    private AsteroidManager asteroidManager;
     private World physicsWorld;
     
     private boolean running;
     private boolean gameInProgress;
     
     public GameManager(StarshipServer starshipServer) {
+        // Setup the Starship management classes
         this.starshipServer = starshipServer;
         this.starshipManager = new StarshipManager();
-        this.shipManager = new ShipManager(this.physicsWorld);
         
+        // Setup the physical world
+        // courtesy of dyn4j.
         // TODO Set world bounds
         this.physicsWorld = new World();
         // Because we're in space...
@@ -38,7 +42,13 @@ public class GameManager extends Thread {
         settings.setStepFrequency(0.05);
         this.physicsWorld.setSettings(settings);
         
+        // Setup our game classes
+        this.asteroidManager = new AsteroidManager(this.physicsWorld);
+        this.shipManager = new ShipManager(this.physicsWorld, this.asteroidManager);
+        
+        // The class Thread isn't running
         this.running = false;
+        // Nor is the game in progress
         this.gameInProgress = false;
     }
     
@@ -60,13 +70,18 @@ public class GameManager extends Thread {
 
     private void processInput() {
         Map<UUID, List<FFup>> messages = this.starshipServer.receiveMessagesFromConsoles();
+        System.out.println("Processing messages");
         for(UUID id : messages.keySet()) {
+            System.out.println("\tfor " + id);
+            int i = 0;
             for(FFup upMessage : messages.get(id)) {
+                System.out.println("\t\t"+i++);
                 if(upMessage.hasRcon()) {
                     // TODO handle RCon
                 }
                 if(upMessage.hasLobby()) {
                     if(!this.gameInProgress) {
+                        System.out.println("\t\t\tProcessing lobby");
                         this.starshipManager.processInput(id, upMessage.getLobby());
                     }
                 }
@@ -86,10 +101,23 @@ public class GameManager extends Thread {
         } else {
             if(this.starshipManager.isEveryoneReady()) {
                 // Start the game
-                this.gameInProgress = true;
+                // Let the starships know that the game has started
+                for(UUID id : this.starshipManager.getIDs()) {
+                    FFdown.Lobby lobby = this.starshipManager.generateOutput(id);
+                    if(lobby != null) {
+                        FFdown.Builder builder = FFdown.newBuilder();
+                        builder.setLobby(lobby);
+                        this.starshipServer.sendMessageToStarship(id, builder.build());
+                    }
+                }
+                // Setup the game
                 for(UUID id : this.starshipManager.getIDs()) {
                     this.shipManager.addShip(id);
                 }
+                this.asteroidManager.addAsteroid(new Vector2(0.0, 5.0));
+                // Remind this class that the game has actually started
+                this.gameInProgress = true;
+                System.out.println("The game has begun.");
             }
         }
     }

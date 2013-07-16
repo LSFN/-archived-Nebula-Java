@@ -44,11 +44,15 @@ public class StarshipManager {
             starships.get(id).setShipName(lobby.getShipName());
         }
         if(lobby.hasReadyState()) {
+            System.out.println("Seting ready state to " + lobby.getReadyState());
             starships.get(id).setReady(lobby.getReadyState());
         }
     }
     
     public boolean isEveryoneReady() {
+        // Stop the game starting with no ships in it
+        if(this.starships.size() < 1) return false;
+        System.out.println("Check proceeding");
         boolean b = true;
         for(UUID id : this.starships.keySet()) {
             // If "&=" confuses you, that's ok. It's rather obscure syntax.
@@ -57,6 +61,7 @@ public class StarshipManager {
         if(this.allReady != b) {
             this.allReadyChanged = true;
             this.allReady = b;
+            System.out.println("All ready: " + this.allReady);
         }
         return this.allReady;
     }

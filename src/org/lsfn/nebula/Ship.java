@@ -1,5 +1,6 @@
 package org.lsfn.nebula;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -65,17 +66,27 @@ public class Ship {
         return this.shipBody.getWorldCenter();
     }
     
-    public FFdown.VisualSensors generateOutput(Map<UUID, Vector2> shipPositions) {
+    public FFdown.VisualSensors generateOutput(List<Ship> ships, List<Asteroid> asteroids) {
         FFdown.VisualSensors.Builder builder = FFdown.VisualSensors.newBuilder();
-        for(UUID id : shipPositions.keySet()) {
-            Vector2 shipPos = shipPositions.get(id);
+        for(Ship ship : ships) {
+            Vector2 shipPos = ship.getPosition();
             Vector2 relativePos = this.shipBody.getLocalPoint(shipPos);
             FFdown.VisualSensors.SpaceObject.Point.Builder point = FFdown.VisualSensors.SpaceObject.Point.newBuilder();
             point.setX(relativePos.x).setY(relativePos.y);
             FFdown.VisualSensors.SpaceObject.Builder spaceObject = FFdown.VisualSensors.SpaceObject.newBuilder();
             spaceObject.setPosition(point.build());
-            spaceObject.setOrientation(0.0);
+            spaceObject.setOrientation(0.0); // TODO actual orientation
             spaceObject.setType(0);
+            builder.addSpaceObjects(spaceObject.build());
+        }
+        for(Asteroid asteroid : asteroids) {
+            Vector2 relativePos = this.shipBody.getLocalPoint(asteroid.getPosition());
+            FFdown.VisualSensors.SpaceObject.Point.Builder point = FFdown.VisualSensors.SpaceObject.Point.newBuilder();
+            point.setX(relativePos.x).setY(relativePos.y);
+            FFdown.VisualSensors.SpaceObject.Builder spaceObject = FFdown.VisualSensors.SpaceObject.newBuilder();
+            spaceObject.setPosition(point.build());
+            spaceObject.setOrientation(0.0); // actual orientation is unnecessary on a circular asteroid
+            spaceObject.setType(1);
             builder.addSpaceObjects(spaceObject.build());
         }
         return builder.build();
