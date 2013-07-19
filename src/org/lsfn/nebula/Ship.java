@@ -61,7 +61,6 @@ public class Ship {
         int longditudinal = (controls[4] ? 1 : 0) - (controls[5] ? 1 : 0);
         int lateral = (controls[3] ? 1 : 0) - (controls[2] ? 1 : 0);
         System.out.println("turn: " + turn + ", long: " + longditudinal + ", lat: " + lateral);
-        // TODO force application needs to take the ship's orientation into account
         // TRIG MATHS!
         double theAngle = this.shipBody.getTransform().getRotation();
         double theSin = Math.sin(theAngle);
@@ -76,19 +75,22 @@ public class Ship {
         return this.shipBody.getWorldCenter();
     }
     
+    public double getRotation() {
+        return this.shipBody.getTransform().getRotation();
+    }
+    
     public FFdown.VisualSensors generateOutput(List<Ship> ships, List<Asteroid> asteroids) {
         FFdown.VisualSensors.Builder builder = FFdown.VisualSensors.newBuilder();
-        System.out.println("Current rotation: " + this.shipBody.getTransform().getRotation());
         // It has been determined that "this.shipBody.getLocalPoint(shipPos)" takes into account the rotation of the body
         // So no manual trig maths needs to go here
         for(Ship ship : ships) {
-            Vector2 shipPos = ship.getPosition();
-            Vector2 relativePos = this.shipBody.getLocalPoint(shipPos);
+            // TODO positions relative to drawing origin or other point
+            Vector2 relativePos = this.shipBody.getLocalPoint(ship.getPosition());
             FFdown.VisualSensors.SpaceObject.Point.Builder point = FFdown.VisualSensors.SpaceObject.Point.newBuilder();
             point.setX(relativePos.x).setY(relativePos.y);
             FFdown.VisualSensors.SpaceObject.Builder spaceObject = FFdown.VisualSensors.SpaceObject.newBuilder();
             spaceObject.setPosition(point.build());
-            spaceObject.setOrientation(0.0); // TODO actual orientation
+            spaceObject.setOrientation(ship.getRotation() - this.getRotation());
             spaceObject.setType(0);
             builder.addSpaceObjects(spaceObject.build());
         }

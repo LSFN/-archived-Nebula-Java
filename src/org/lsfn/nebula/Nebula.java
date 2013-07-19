@@ -18,9 +18,13 @@ public class Nebula {
         this.keepGoing = true;
     }
     
-    private void startStarshipServer() {
+    private void startStarshipServer(int port) {
         this.starshipServer = new StarshipServer();
-        this.starshipServer.listen();
+        if(port == -1) {
+            this.starshipServer.listen();
+        } else {
+            this.starshipServer.listen(port);
+        }
         this.starshipServer.start();
         this.gameManager = new GameManager(starshipServer);
         this.gameManager.start();
@@ -37,7 +41,11 @@ public class Nebula {
         String[] commandParts = commandStr.split(" ");
          
         if(commandParts[0].equals("listen")) {
-            startStarshipServer();
+            if(commandParts.length >= 2) {
+                startStarshipServer(Integer.parseInt(commandParts[1]));
+            } else {
+                startStarshipServer(-1);
+            }
         } else if(commandParts[0].equals("exit")) {
             this.keepGoing = false;
         } else if(commandParts[0].equals("help")) {

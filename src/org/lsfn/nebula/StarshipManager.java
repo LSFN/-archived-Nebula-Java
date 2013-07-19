@@ -32,7 +32,9 @@ public class StarshipManager {
     }
     
     public void removeStarship(UUID id) {
-        starships.remove(id);
+        if(starships.remove(id) != null) {
+            this.shipListChanged = true;
+        }
     }
     
     public Set<UUID> getIDs() {
@@ -42,27 +44,25 @@ public class StarshipManager {
     public void processInput(UUID id, FFup.Lobby lobby) {
         if(lobby.hasShipName()) {
             starships.get(id).setShipName(lobby.getShipName());
+            this.shipListChanged = true;
         }
         if(lobby.hasReadyState()) {
-            System.out.println("Seting ready state to " + lobby.getReadyState());
             starships.get(id).setReady(lobby.getReadyState());
+            if(this.starships.size() >= 1) {
+                boolean b = true;
+                for(UUID id2 : this.starships.keySet()) {
+                    // If "&=" confuses you, that's ok. It's rather obscure syntax.
+                    b &= this.starships.get(id2).isReady();
+                }
+                if(this.allReady != b) {
+                    this.allReadyChanged = true;
+                    this.allReady = b;
+                }
+            }
         }
     }
     
     public boolean isEveryoneReady() {
-        // Stop the game starting with no ships in it
-        if(this.starships.size() < 1) return false;
-        System.out.println("Check proceeding");
-        boolean b = true;
-        for(UUID id : this.starships.keySet()) {
-            // If "&=" confuses you, that's ok. It's rather obscure syntax.
-            b &= this.starships.get(id).isReady();
-        }
-        if(this.allReady != b) {
-            this.allReadyChanged = true;
-            this.allReady = b;
-            System.out.println("All ready: " + this.allReady);
-        }
         return this.allReady;
     }
     
@@ -101,5 +101,10 @@ public class StarshipManager {
             return builder.build();
         }
         return null;
+    }
+    
+    public void resetFlags() {
+        this.shipListChanged = false;
+        this.allReadyChanged = false;
     }
 }

@@ -59,9 +59,13 @@ public class StarshipServer extends Thread {
     }
     
     public ServerStatus listen() {
+        return this.listen(defaultPort);
+    }
+        
+    public ServerStatus listen(int port) {
         if(this.serverStatus == ServerStatus.CLOSED) {
             try {
-                this.starshipServer = new ServerSocket(defaultPort);
+                this.starshipServer = new ServerSocket(port);
                 this.starshipServer.setSoTimeout(pollWait);
                 this.listeners = new HashMap<UUID, StarshipListener>();
                 this.buffers = new HashMap<UUID, List<FFup>>();
