@@ -70,18 +70,14 @@ public class GameManager extends Thread {
 
     private void processInput() {
         Map<UUID, List<FFup>> messages = this.starshipServer.receiveMessagesFromConsoles();
-        System.out.println("Processing messages");
         for(UUID id : messages.keySet()) {
-            System.out.println("\tfor " + id);
             int i = 0;
             for(FFup upMessage : messages.get(id)) {
-                System.out.println("\t\t"+i++);
                 if(upMessage.hasRcon()) {
                     // TODO handle RCon
                 }
                 if(upMessage.hasLobby()) {
                     if(!this.gameInProgress) {
-                        System.out.println("\t\t\tProcessing lobby");
                         this.starshipManager.processInput(id, upMessage.getLobby());
                     }
                 }
@@ -115,6 +111,9 @@ public class GameManager extends Thread {
                     this.shipManager.addShip(id);
                 }
                 this.asteroidManager.addAsteroid(new Vector2(0.0, 5.0));
+                this.asteroidManager.addAsteroid(new Vector2(0.0, 10.0));
+                this.asteroidManager.addAsteroid(new Vector2(0.0, 15.0));
+                this.asteroidManager.addAsteroid(new Vector2(0.0, 20.0));
                 // Remind this class that the game has actually started
                 this.gameInProgress = true;
                 System.out.println("The game has begun.");

@@ -11,15 +11,18 @@ import org.lsfn.nebula.FF.FFup;
 
 public class Ship {
 
+    private static final double torqueMod = 0.1;
+    private static final double forceMod = 0.5;
+    
     private Body shipBody;
     private boolean[] controls = {false, false, false, false, false, false};
     
     public Ship(World world, Vector2 startPos) {
         // Turns the shipBody into a triangle
         this.shipBody = new Body();
-        Vector2 v1 = new Vector2(0.0, 1.0);
-        Vector2 v2 = new Vector2(0.0, -1.0);
-        Vector2 v3 = new Vector2(2.0, 0.0);
+        Vector2 v1 = new Vector2(1.0, 0.0);
+        Vector2 v2 = new Vector2(0.0, 2.0);
+        Vector2 v3 = new Vector2(-1.0, 0.0);
         Convex shipConvex = new Triangle(v1, v2, v3);
         BodyFixture fixture = new BodyFixture(shipConvex);
         fixture.setDensity(1.0);
@@ -54,12 +57,19 @@ public class Ship {
     }
     
     public void tick() {
-        int turn = (controls[1] ? 1 : 0) - (controls[0] ? 1 : 0);
+        int turn = (controls[0] ? 1 : 0) - (controls[1] ? 1 : 0);
         int longditudinal = (controls[4] ? 1 : 0) - (controls[5] ? 1 : 0);
         int lateral = (controls[3] ? 1 : 0) - (controls[2] ? 1 : 0);
-        this.shipBody.applyForce(new Vector2(0.0, longditudinal * 0.1));
-        this.shipBody.applyForce(new Vector2(lateral * 0.1, 0.0));
-        this.shipBody.applyTorque(turn * 0.1);
+        System.out.println("turn: " + turn + ", long: " + longditudinal + ", lat: " + lateral);
+        // TODO force application needs to take the ship's orientation into account
+        // TRIG MATHS!
+        double theAngle = this.shipBody.getTransform().getRotation();
+        double theSin = Math.sin(theAngle);
+        double theCos = Math.cos(theAngle);
+        System.out.println("Angle: " + theAngle + ", Sin: " + theSin + ", Cos: " + theCos);
+        this.shipBody.applyForce(new Vector2(-theSin * longditudinal * forceMod, theCos * longditudinal * forceMod));
+        this.shipBody.applyForce(new Vector2(theCos * lateral * forceMod, theSin * lateral * forceMod));
+        this.shipBody.applyTorque(turn * torqueMod);
     }
     
     public Vector2 getPosition() {
@@ -68,6 +78,9 @@ public class Ship {
     
     public FFdown.VisualSensors generateOutput(List<Ship> ships, List<Asteroid> asteroids) {
         FFdown.VisualSensors.Builder builder = FFdown.VisualSensors.newBuilder();
+        System.out.println("Current rotation: " + this.shipBody.getTransform().getRotation());
+        // It has been determined that "this.shipBody.getLocalPoint(shipPos)" takes into account the rotation of the body
+        // So no manual trig maths needs to go here
         for(Ship ship : ships) {
             Vector2 shipPos = ship.getPosition();
             Vector2 relativePos = this.shipBody.getLocalPoint(shipPos);
