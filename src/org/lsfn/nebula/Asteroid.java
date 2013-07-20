@@ -25,7 +25,7 @@ public class Asteroid {
     }
 
     public Vector2 getPosition() {
-        return this.asteroidBody.getWorldCenter();
+        return this.asteroidBody.getWorldPoint(new Vector2(0,0));
     }
     
 }

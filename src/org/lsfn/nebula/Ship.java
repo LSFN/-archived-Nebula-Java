@@ -60,19 +60,17 @@ public class Ship {
         int turn = (controls[0] ? 1 : 0) - (controls[1] ? 1 : 0);
         int longditudinal = (controls[4] ? 1 : 0) - (controls[5] ? 1 : 0);
         int lateral = (controls[3] ? 1 : 0) - (controls[2] ? 1 : 0);
-        System.out.println("turn: " + turn + ", long: " + longditudinal + ", lat: " + lateral);
         // TRIG MATHS!
         double theAngle = this.shipBody.getTransform().getRotation();
         double theSin = Math.sin(theAngle);
         double theCos = Math.cos(theAngle);
-        System.out.println("Angle: " + theAngle + ", Sin: " + theSin + ", Cos: " + theCos);
         this.shipBody.applyForce(new Vector2(-theSin * longditudinal * forceMod, theCos * longditudinal * forceMod));
         this.shipBody.applyForce(new Vector2(theCos * lateral * forceMod, theSin * lateral * forceMod));
         this.shipBody.applyTorque(turn * torqueMod);
     }
     
     public Vector2 getPosition() {
-        return this.shipBody.getWorldCenter();
+        return this.shipBody.getWorldPoint(new Vector2(0, 0));
     }
     
     public double getRotation() {
@@ -84,7 +82,6 @@ public class Ship {
         // It has been determined that "this.shipBody.getLocalPoint(shipPos)" takes into account the rotation of the body
         // So no manual trig maths needs to go here
         for(Ship ship : ships) {
-            // TODO positions relative to drawing origin or other point
             Vector2 relativePos = this.shipBody.getLocalPoint(ship.getPosition());
             FFdown.VisualSensors.SpaceObject.Point.Builder point = FFdown.VisualSensors.SpaceObject.Point.newBuilder();
             point.setX(relativePos.x).setY(relativePos.y);
