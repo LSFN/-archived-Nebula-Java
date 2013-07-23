@@ -17,9 +17,12 @@ import org.lsfn.nebula.STS.*;
  */
 public class StarshipListener {
 
+    private static final long timeout = 5000; 
+    
     private Socket starshipSocket;
     private BufferedInputStream starshipInput;
     private BufferedOutputStream starshipOutput;
+    private long timeLastMessageReceived;
     
     public enum ListenerStatus {
         NOT_SETUP,
@@ -33,10 +36,15 @@ public class StarshipListener {
         this.starshipInput = null;
         this.starshipOutput = null;
         this.listenerStatus = ListenerStatus.NOT_SETUP;
+        this.timeLastMessageReceived = System.currentTimeMillis();
     }
     
     public ListenerStatus getListenerStatus() {
         return this.listenerStatus;
+    }
+    
+    public boolean hasTimedOut() {
+        return System.currentTimeMillis() >= this.timeLastMessageReceived + timeout;
     }
     
     private boolean setupStreams() {
@@ -93,6 +101,7 @@ public class StarshipListener {
         if(this.listenerStatus == ListenerStatus.CONNECTED) {
             try {
                 while(this.starshipInput.available() > 0) {
+                    this.timeLastMessageReceived = System.currentTimeMillis();
                     STSup upMessage = STSup.parseDelimitedFrom(this.starshipInput);
                     upMessages.add(upMessage);
                 }

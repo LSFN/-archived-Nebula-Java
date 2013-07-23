@@ -197,7 +197,12 @@ public class StarshipServer extends Thread {
                 List<STSup> upMessages = listener.receiveMessagesFromStarship();
                 addMessagesToBuffer(id, upMessages);
                 if(listener.getListenerStatus() == ListenerStatus.DISCONNECTED) {
-                    System.out.println("Starship " + id.toString() + " disconnected.");
+                    System.out.println("Starship " + id.toString() + " has disconnected.");
+                    removeListener(id);
+                    addDisconnectedStarship(id);
+                } else if(listener.hasTimedOut()) {
+                    System.out.println("Starship " + id.toString() + " has timed out.");
+                    listener.disconnect();
                     removeListener(id);
                     addDisconnectedStarship(id);
                 }
