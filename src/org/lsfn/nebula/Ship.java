@@ -6,8 +6,7 @@ import java.util.UUID;
 
 import org.dyn4j.dynamics.*;
 import org.dyn4j.geometry.*;
-import org.lsfn.nebula.FF.FFdown;
-import org.lsfn.nebula.FF.FFup;
+import org.lsfn.nebula.STS.*;
 
 public class Ship {
 
@@ -34,7 +33,7 @@ public class Ship {
         world.addBody(shipBody);
     }
     
-    public void processInput(FFup.Piloting piloting) {
+    public void processInput(STSup.Piloting piloting) {
      // The order of the booleans in controls matches that of the tag numbers in FF.proto
         if(piloting.hasTurnAnti()) {
             controls[0] = piloting.getTurnAnti();
@@ -77,28 +76,28 @@ public class Ship {
         return this.shipBody.getTransform().getRotation();
     }
     
-    public FFdown.VisualSensors generateOutput(List<Ship> ships, List<Asteroid> asteroids) {
-        FFdown.VisualSensors.Builder builder = FFdown.VisualSensors.newBuilder();
+    public STSdown.VisualSensors generateOutput(List<Ship> ships, List<Asteroid> asteroids) {
+        STSdown.VisualSensors.Builder builder = STSdown.VisualSensors.newBuilder();
         // It has been determined that "this.shipBody.getLocalPoint(shipPos)" takes into account the rotation of the body
         // So no manual trig maths needs to go here
         for(Ship ship : ships) {
             Vector2 relativePos = this.shipBody.getLocalPoint(ship.getPosition());
-            FFdown.VisualSensors.SpaceObject.Point.Builder point = FFdown.VisualSensors.SpaceObject.Point.newBuilder();
+            STSdown.VisualSensors.SpaceObject.Point.Builder point = STSdown.VisualSensors.SpaceObject.Point.newBuilder();
             point.setX(relativePos.x).setY(relativePos.y);
-            FFdown.VisualSensors.SpaceObject.Builder spaceObject = FFdown.VisualSensors.SpaceObject.newBuilder();
+            STSdown.VisualSensors.SpaceObject.Builder spaceObject = STSdown.VisualSensors.SpaceObject.newBuilder();
             spaceObject.setPosition(point.build());
             spaceObject.setOrientation(ship.getRotation() - this.getRotation());
-            spaceObject.setType(0);
+            spaceObject.setType(STSdown.VisualSensors.SpaceObject.Type.SHIP);
             builder.addSpaceObjects(spaceObject.build());
         }
         for(Asteroid asteroid : asteroids) {
             Vector2 relativePos = this.shipBody.getLocalPoint(asteroid.getPosition());
-            FFdown.VisualSensors.SpaceObject.Point.Builder point = FFdown.VisualSensors.SpaceObject.Point.newBuilder();
+            STSdown.VisualSensors.SpaceObject.Point.Builder point = STSdown.VisualSensors.SpaceObject.Point.newBuilder();
             point.setX(relativePos.x).setY(relativePos.y);
-            FFdown.VisualSensors.SpaceObject.Builder spaceObject = FFdown.VisualSensors.SpaceObject.newBuilder();
+            STSdown.VisualSensors.SpaceObject.Builder spaceObject = STSdown.VisualSensors.SpaceObject.newBuilder();
             spaceObject.setPosition(point.build());
             spaceObject.setOrientation(0.0); // actual orientation is unnecessary on a circular asteroid
-            spaceObject.setType(1);
+            spaceObject.setType(STSdown.VisualSensors.SpaceObject.Type.ASTEROID);
             builder.addSpaceObjects(spaceObject.build());
         }
         return builder.build();

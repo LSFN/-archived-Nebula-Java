@@ -13,8 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.lsfn.nebula.FF.FFdown;
-import org.lsfn.nebula.FF.FFup;
+import org.lsfn.nebula.STS.*;
 import org.lsfn.nebula.StarshipListener.ListenerStatus;
 
 /**
@@ -31,7 +30,7 @@ public class StarshipServer extends Thread {
     
     private ServerSocket starshipServer;
     private Map<UUID, StarshipListener> listeners;
-    private Map<UUID, List<FFup>> buffers;
+    private Map<UUID, List<STSup>> buffers;
     private List<UUID> connectedStarships;
     private List<UUID> disconnectedStarships;
     
@@ -68,7 +67,7 @@ public class StarshipServer extends Thread {
                 this.starshipServer = new ServerSocket(port);
                 this.starshipServer.setSoTimeout(pollWait);
                 this.listeners = new HashMap<UUID, StarshipListener>();
-                this.buffers = new HashMap<UUID, List<FFup>>();
+                this.buffers = new HashMap<UUID, List<STSup>>();
                 this.connectedStarships = new ArrayList<UUID>();
                 this.disconnectedStarships = new ArrayList<UUID>();
                 this.serverStatus = ServerStatus.OPEN;
@@ -110,18 +109,18 @@ public class StarshipServer extends Thread {
         this.disconnectedStarships.add(id);
     }
     
-    public synchronized Map<UUID, List<FFup>> receiveMessagesFromConsoles() {
-        Map<UUID, List<FFup>> result = this.buffers;
+    public synchronized Map<UUID, List<STSup>> receiveMessagesFromConsoles() {
+        Map<UUID, List<STSup>> result = this.buffers;
         
-        this.buffers = new HashMap<UUID, List<FFup>>();
+        this.buffers = new HashMap<UUID, List<STSup>>();
         for(UUID id : result.keySet()) {
-            this.buffers.put(id, new ArrayList<FFup>());
+            this.buffers.put(id, new ArrayList<STSup>());
         }
         
         return result;
     }
     
-    private synchronized void addMessagesToBuffer(UUID id, List<FFup> upMessages) {
+    private synchronized void addMessagesToBuffer(UUID id, List<STSup> upMessages) {
         this.buffers.get(id).addAll(upMessages);
     }
     
@@ -131,14 +130,14 @@ public class StarshipServer extends Thread {
         }
     }
     
-    public void sendMessageToStarship(UUID id, FFdown downMessage) {
+    public void sendMessageToStarship(UUID id, STSdown downMessage) {
         StarshipListener listener = getListener(id);
         if(listener != null) {
             listener.sendMessageToStarship(downMessage);
         }
     }
     
-    public void sendMessageToAllStarships(FFdown downMessage) {
+    public void sendMessageToAllStarships(STSdown downMessage) {
         Set<UUID> ids = getListenerIDs();
         for(UUID id: ids) {
             StarshipListener listener = getListener(id);
@@ -150,7 +149,7 @@ public class StarshipServer extends Thread {
     
     private synchronized void addListener(UUID id, StarshipListener listener) {
         this.listeners.put(id, listener);
-        this.buffers.put(id, new ArrayList<FFup>());
+        this.buffers.put(id, new ArrayList<STSup>());
     }
     
     private synchronized void removeListener(UUID id) {
@@ -195,7 +194,7 @@ public class StarshipServer extends Thread {
         while(this.serverStatus == ServerStatus.OPEN) {
             for(UUID id : getListenerIDs()) {
                 StarshipListener listener = getListener(id);
-                List<FFup> upMessages = listener.receiveMessagesFromStarship();
+                List<STSup> upMessages = listener.receiveMessagesFromStarship();
                 addMessagesToBuffer(id, upMessages);
                 if(listener.getListenerStatus() == ListenerStatus.DISCONNECTED) {
                     System.out.println("Starship " + id.toString() + " disconnected.");

@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lsfn.nebula.FF.*;
+import org.lsfn.nebula.STS.*;
 
 /**
  * Listens to a single socket.
@@ -62,7 +62,7 @@ public class StarshipListener {
         return this.listenerStatus;
     }
     
-    public ListenerStatus sendMessageToStarship(FFdown downMessage) {
+    public ListenerStatus sendMessageToStarship(STSdown downMessage) {
         if(this.listenerStatus == ListenerStatus.NOT_SETUP) {
             if(!setupStreams()) {
                 this.listenerStatus = ListenerStatus.DISCONNECTED;
@@ -81,8 +81,8 @@ public class StarshipListener {
         return this.listenerStatus;
     }
     
-    public List<FFup> receiveMessagesFromStarship() {
-        List<FFup> upMessages = new ArrayList<FFup>();
+    public List<STSup> receiveMessagesFromStarship() {
+        List<STSup> upMessages = new ArrayList<STSup>();
         if(this.listenerStatus == ListenerStatus.NOT_SETUP) {
             if(setupStreams()) {
                 this.listenerStatus = ListenerStatus.CONNECTED;
@@ -93,7 +93,7 @@ public class StarshipListener {
         if(this.listenerStatus == ListenerStatus.CONNECTED) {
             try {
                 while(this.starshipInput.available() > 0) {
-                    FFup upMessage = FFup.parseDelimitedFrom(this.starshipInput);
+                    STSup upMessage = STSup.parseDelimitedFrom(this.starshipInput);
                     upMessages.add(upMessage);
                 }
             } catch (IOException e) {

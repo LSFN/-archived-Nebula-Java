@@ -8,8 +8,8 @@ import java.util.UUID;
 
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Vector2;
-import org.lsfn.nebula.FF.FFdown;
-import org.lsfn.nebula.FF.FFup;
+import org.lsfn.nebula.STS.STSdown;
+import org.lsfn.nebula.STS.STSup;
 
 /**
  * Not to be confused with the StarshipManager, this class deals with the actual ship in the game and not the Starship program.
@@ -36,7 +36,7 @@ public class ShipManager {
         this.ships.put(id, ship);
     }
     
-    public void processInput(UUID id, FFup.Piloting piloting) {
+    public void processInput(UUID id, STSup.Piloting piloting) {
         this.ships.get(id).processInput(piloting);
     }
     
@@ -46,7 +46,7 @@ public class ShipManager {
         }
     }
     
-    public FFdown.VisualSensors generateOutput(UUID id) {
+    public STSdown.VisualSensors generateOutput(UUID id) {
         Ship ship = this.ships.get(id);
         List<Ship> ships = new ArrayList<Ship>();
         for(UUID id2 : this.ships.keySet()) {

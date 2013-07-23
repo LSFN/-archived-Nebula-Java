@@ -6,8 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.lsfn.nebula.FF.FFdown;
-import org.lsfn.nebula.FF.FFup;
+import org.lsfn.nebula.STS.*;
 
 
 public class StarshipManager {
@@ -41,7 +40,7 @@ public class StarshipManager {
         return new HashSet<UUID>(this.starships.keySet());
     }
     
-    public void processInput(UUID id, FFup.Lobby lobby) {
+    public void processInput(UUID id, STSup.Lobby lobby) {
         if(lobby.hasShipName()) {
             starships.get(id).setShipName(lobby.getShipName());
             this.shipListChanged = true;
@@ -71,10 +70,10 @@ public class StarshipManager {
      * @param id
      * @return
      */
-    public FFdown.Lobby generateOutput(UUID id) {
+    public STSdown.Lobby generateOutput(UUID id) {
         StarshipInfo starshipInfo = starships.get(id);
         if(this.shipListChanged || this.allReadyChanged || starshipInfo.isNew() || starshipInfo.isShipNameChanged() || starshipInfo.isReadyChanged()) {
-            FFdown.Lobby.Builder builder = FFdown.Lobby.newBuilder();
+            STSdown.Lobby.Builder builder = STSdown.Lobby.newBuilder();
             if(this.shipListChanged || starshipInfo.isNew()) {
                 for(UUID shipID : this.starships.keySet()) {
                     if(!shipID.equals(id)) {

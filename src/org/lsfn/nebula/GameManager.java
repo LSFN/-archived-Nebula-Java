@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.dyn4j.dynamics.Settings;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Vector2;
-import org.lsfn.nebula.FF.FFdown;
-import org.lsfn.nebula.FF.FFup;
+
+import org.lsfn.nebula.STS.*;
 
 /**
  * Everything to do with the game itself is managed through this class.
@@ -70,9 +70,9 @@ public class GameManager extends Thread {
     }
 
     private void processInput() {
-        Map<UUID, List<FFup>> messages = this.starshipServer.receiveMessagesFromConsoles();
+        Map<UUID, List<STSup>> messages = this.starshipServer.receiveMessagesFromConsoles();
         for(UUID id : messages.keySet()) {
-            for(FFup upMessage : messages.get(id)) {
+            for(STSup upMessage : messages.get(id)) {
                 if(upMessage.hasRcon()) {
                     // TODO handle RCon
                 }
@@ -118,17 +118,17 @@ public class GameManager extends Thread {
     private void dispatchOutput() {
         if(gameInProgress) {
             for(UUID id : this.starshipManager.getIDs()) {
-                FFdown.Builder builder = FFdown.newBuilder();
+                STSdown.Builder builder = STSdown.newBuilder();
                 builder.setVisualSensors(this.shipManager.generateOutput(id));
                 this.starshipServer.sendMessageToStarship(id, builder.build());
             }
         } else {
             // Lobby
             for(UUID id : this.starshipManager.getIDs()) {
-                FFdown.Lobby lobby = this.starshipManager.generateOutput(id);
+                STSdown.Lobby lobby = this.starshipManager.generateOutput(id);
                 // This if statement will get additional clauses so it won't be redundant.
                 if(lobby != null) {
-                    FFdown.Builder builder = FFdown.newBuilder();
+                    STSdown.Builder builder = STSdown.newBuilder();
                     if(lobby != null) {
                         builder.setLobby(lobby);
                     }

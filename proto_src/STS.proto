@@ -1,0 +1,76 @@
+option java_package = "org.lsfn.nebula";
+option java_outer_classname = "STS";
+
+message STSup {
+    message Connection {
+        enum ConnectionCommand {
+            CONNECT = 0;
+            DISCONNECT = 1;
+        }
+        
+        optional ConnectionCommand connectionCommand = 1;
+        optional string host = 2;
+        optional uint32 port = 3;
+    }
+
+	message Lobby {
+		optional bool readyState = 1;
+		optional string shipName = 2;
+	}
+	
+	message RCon {
+		optional string command = 1;
+	}
+	
+	message Piloting {
+        optional bool turnAnti = 1;
+        optional bool turnClock = 2;
+        optional bool thrustLeft = 3;
+        optional bool thrustRight = 4;
+        optional bool thrustForward = 5;
+        optional bool thrustBackward = 6;
+    }
+	
+	optional RCon rcon = 1;
+	optional Connection connection = 2;
+	optional Lobby lobby = 3;
+	optional Piloting piloting = 4;
+}
+
+message STSdown {
+    message Connection {
+        optional bool connected = 1;
+    }
+
+	message Lobby {
+	   optional bool readyState = 1;
+	   optional string shipName = 2;
+	   repeated string shipsInGame = 3;
+	   optional bool gameStarted = 4;
+	}
+	
+	message VisualSensors {
+        message SpaceObject {
+            enum Type {
+                SHIP = 0;
+                ASTEROID = 1;         
+            }
+        
+            message Point {
+                optional double x = 1;
+                optional double y = 2;
+            }
+            
+            optional Type type = 1;
+            optional Point position = 2;
+            // orientation is in radians
+            optional double orientation = 3; 
+        }
+        
+        repeated SpaceObject spaceObjects = 1;
+    }
+    
+    optional Connection connection = 1;
+    optional Lobby lobby = 2;
+    optional VisualSensors visualSensors = 3;
+}
