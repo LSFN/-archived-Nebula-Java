@@ -13,7 +13,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.lsfn.nebula.STS.*;
+import org.lsfn.nebula.STS.STSdown;
+import org.lsfn.nebula.STS.STSup;
 import org.lsfn.nebula.StarshipListener.ListenerStatus;
 
 /**

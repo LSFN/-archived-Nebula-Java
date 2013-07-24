@@ -1,6 +1,5 @@
 package org.lsfn.nebula;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -8,8 +7,8 @@ import java.util.UUID;
 import org.dyn4j.dynamics.Settings;
 import org.dyn4j.dynamics.World;
 import org.dyn4j.geometry.Vector2;
-
-import org.lsfn.nebula.STS.*;
+import org.lsfn.nebula.STS.STSdown;
+import org.lsfn.nebula.STS.STSup;
 
 /**
  * Everything to do with the game itself is managed through this class.
@@ -20,8 +19,8 @@ public class GameManager extends Thread {
 
     private static final Integer pollWait = 50;
     
-    private StarshipServer starshipServer;
     private StarshipManager starshipManager;
+    private LobbyManager lobbyManager;
     private ShipManager shipManager;
     private AsteroidManager asteroidManager;
     private World physicsWorld;
@@ -29,10 +28,10 @@ public class GameManager extends Thread {
     private boolean running;
     private boolean gameInProgress;
     
-    public GameManager(StarshipServer starshipServer) {
+    public GameManager() {
         // Setup the Starship management classes
-        this.starshipServer = starshipServer;
         this.starshipManager = new StarshipManager();
+        this.lobbyManager = new LobbyManager();
         
         // Setup the physical world
         // courtesy of dyn4j.
@@ -53,25 +52,9 @@ public class GameManager extends Thread {
         // Nor is the game in progress
         this.gameInProgress = false;
     }
-    
-    private void handleNewConnections() {
-        List<UUID> newConnections = this.starshipServer.getConnectedStarships();
-        for(UUID id : newConnections) {
-            if(!this.gameInProgress) {
-                this.starshipManager.addStarship(id);
-            }
-        }
-    }
-    
-    private void handleDisconnections() {
-        List<UUID> newDisconnections = this.starshipServer.getDisconnectedStarships();
-        for(UUID id : newDisconnections) {
-            this.starshipManager.removeStarship(id);
-        }
-    }
 
     private void processInput() {
-        Map<UUID, List<STSup>> messages = this.starshipServer.receiveMessagesFromConsoles();
+        Map<UUID, List<STSup>> messages = this.starshipManager.getInput();
         for(UUID id : messages.keySet()) {
             for(STSup upMessage : messages.get(id)) {
                 if(upMessage.hasRcon()) {
@@ -79,7 +62,8 @@ public class GameManager extends Thread {
                 }
                 if(upMessage.hasLobby()) {
                     if(!this.gameInProgress) {
-                        this.starshipManager.processInput(id, upMessage.getLobby());
+                        this.lobbyManager.handleNewStarships(this.starshipManager.getNewStarships());
+                        this.lobbyManager.processInput(id, upMessage.getLobby());
                     }
                 }
                 if(upMessage.hasPiloting()) {
@@ -96,13 +80,13 @@ public class GameManager extends Thread {
             this.shipManager.tick();
             this.physicsWorld.update(0.05);
         } else {
-            if(this.starshipManager.isEveryoneReady()) {
+            if(this.lobbyManager.isEveryoneReady()) {
                 // Start the game
                 // TODO do this not as part of the main loop but outside of it
                 // Let the starships know that the game has started
                 dispatchOutput();
                 // Setup the game
-                for(UUID id : this.starshipManager.getIDs()) {
+                for(UUID id : this.lobbyManager.getIDs()) {
                     this.shipManager.addShip(id);
                 }
                 this.asteroidManager.addAsteroid(new Vector2(0.0, 5.0));
@@ -118,26 +102,24 @@ public class GameManager extends Thread {
     
     private void dispatchOutput() {
         if(gameInProgress) {
-            for(UUID id : this.starshipManager.getIDs()) {
+            for(UUID id : this.lobbyManager.getIDs()) {
                 STSdown.Builder builder = STSdown.newBuilder();
                 builder.setVisualSensors(this.shipManager.generateOutput(id));
-                this.starshipServer.sendMessageToStarship(id, builder.build());
+                this.starshipManager.sendMessageToStarship(id, builder.build());
             }
         } else {
             // Lobby
-            for(UUID id : this.starshipManager.getIDs()) {
-                STSdown.Lobby lobby = this.starshipManager.generateOutput(id);
+            for(UUID id : this.lobbyManager.getIDs()) {
+                STSdown.Builder stsDown = STSdown.newBuilder();
+                boolean somethingToSend = false;
+                somethingToSend |= this.lobbyManager.generateOutput(stsDown, id);
                 // This if statement will get additional clauses so it won't be redundant.
-                if(lobby != null) {
-                    STSdown.Builder builder = STSdown.newBuilder();
-                    if(lobby != null) {
-                        builder.setLobby(lobby);
-                    }
-                    this.starshipServer.sendMessageToStarship(id, builder.build());
+                if(somethingToSend) {
+                    this.starshipManager.sendMessageToStarship(id, stsDown.build());
                 }
             }
         }
-        this.starshipManager.resetFlags();
+        this.lobbyManager.resetFlags();
     }
     
     @Override
@@ -146,10 +128,6 @@ public class GameManager extends Thread {
         // It runs even when a game is not in progress, i.e. in the lobby
         this.running = true;
         while(this.running) {
-            // Handle new connections
-            handleNewConnections();
-            // Handle disconnections
-            handleDisconnections();
             // Process input
             processInput();
             // Game update step

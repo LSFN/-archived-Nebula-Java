@@ -7,7 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lsfn.nebula.STS.*;
+import org.lsfn.nebula.STS.STSdown;
+import org.lsfn.nebula.STS.STSup;
 
 /**
  * Listens to a single socket.

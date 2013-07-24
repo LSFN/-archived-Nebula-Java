@@ -55,6 +55,9 @@ message STSdown {
             REJOIN_ACCEPTED = 1;
             JOIN_REJECTED = 2;
         }
+        
+        optional Response response = 1;
+        optional string rejoinToken = 2;
     }
 
     message Connection {

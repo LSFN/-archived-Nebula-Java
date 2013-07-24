@@ -1,12 +1,15 @@
 package org.lsfn.nebula;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
-import org.dyn4j.dynamics.*;
-import org.dyn4j.geometry.*;
-import org.lsfn.nebula.STS.*;
+import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.dynamics.World;
+import org.dyn4j.geometry.Convex;
+import org.dyn4j.geometry.Triangle;
+import org.dyn4j.geometry.Vector2;
+import org.lsfn.nebula.STS.STSdown;
+import org.lsfn.nebula.STS.STSup;
 
 public class Ship {
 

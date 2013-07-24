@@ -2,12 +2,7 @@ package org.lsfn.nebula;
 
 import java.util.UUID;
 
-/**
- * POJO for storing information about each Starship.
- * @author Lukeus_Maximus
- *
- */
-public class StarshipInfo {
+public class LobbyInfo {
 
     private UUID id;
     private String shipName;
@@ -15,16 +10,16 @@ public class StarshipInfo {
     private boolean ready;
     private boolean readyChanged;
     private boolean isNew;
-
-    public StarshipInfo(UUID id) {
+    
+    public LobbyInfo(UUID id) {
         this.id = id;
         this.shipName = "Mungle Box";
-        this.shipNameChanged = true;
+        this.shipNameChanged = false;
         this.ready = false;
-        this.readyChanged = true;
+        this.readyChanged = false;
         this.isNew = true;
     }
-
+    
     public UUID getId() {
         return this.id;
     }
