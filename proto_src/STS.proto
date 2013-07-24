@@ -2,6 +2,16 @@ option java_package = "org.lsfn.nebula";
 option java_outer_classname = "STS";
 
 message STSup {
+    message Join {
+        enum JoinType {
+            JOIN = 0;
+            REJOIN = 1;
+        }
+        
+        optional JoinType type = 1;
+        optional string rejoinToken = 2;
+    }
+
     message Connection {
         enum ConnectionCommand {
             CONNECT = 0;
@@ -30,14 +40,23 @@ message STSup {
         optional bool thrustForward = 5;
         optional bool thrustBackward = 6;
     }
-	
+    
 	optional RCon rcon = 1;
-	optional Connection connection = 2;
-	optional Lobby lobby = 3;
-	optional Piloting piloting = 4;
+	optional Join join = 2;
+	optional Connection connection = 3;
+	optional Lobby lobby = 4;
+	optional Piloting piloting = 5;
 }
 
 message STSdown {
+    message Join {
+        enum Response {
+            JOIN_ACCEPTED = 0;
+            REJOIN_ACCEPTED = 1;
+            JOIN_REJECTED = 2;
+        }
+    }
+
     message Connection {
         optional bool connected = 1;
     }
@@ -70,7 +89,8 @@ message STSdown {
         repeated SpaceObject spaceObjects = 1;
     }
     
-    optional Connection connection = 1;
-    optional Lobby lobby = 2;
-    optional VisualSensors visualSensors = 3;
+    optional Join join = 1;
+    optional Connection connection = 2;
+    optional Lobby lobby = 3;
+    optional VisualSensors visualSensors = 4;
 }
