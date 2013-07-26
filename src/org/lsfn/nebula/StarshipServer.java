@@ -201,11 +201,6 @@ public class StarshipServer extends Thread {
                     System.out.println("Starship " + id.toString() + " has disconnected.");
                     removeListener(id);
                     addDisconnectedStarship(id);
-                } else if(listener.hasTimedOut()) {
-                    System.out.println("Starship " + id.toString() + " has timed out.");
-                    listener.disconnect();
-                    removeListener(id);
-                    addDisconnectedStarship(id);
                 }
             }
             try {

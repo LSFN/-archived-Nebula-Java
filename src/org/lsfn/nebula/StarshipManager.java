@@ -19,6 +19,7 @@ public class StarshipManager {
     
     private StarshipServer starshipServer;
     private Map<UUID, Long> timesConnected;
+    // Really should be a bimap.
     private Map<UUID, UUID> connectionToStarshipIDMap;
     private List<UUID> newStarships;
     private boolean allowJoins;

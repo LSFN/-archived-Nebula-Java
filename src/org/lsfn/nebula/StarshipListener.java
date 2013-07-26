@@ -23,6 +23,7 @@ public class StarshipListener {
     private Socket starshipSocket;
     private BufferedInputStream starshipInput;
     private BufferedOutputStream starshipOutput;
+    private long timeLastMessageSent;
     private long timeLastMessageReceived;
     
     public enum ListenerStatus {
@@ -37,15 +38,25 @@ public class StarshipListener {
         this.starshipInput = null;
         this.starshipOutput = null;
         this.listenerStatus = ListenerStatus.NOT_SETUP;
+        this.timeLastMessageSent = System.currentTimeMillis();
         this.timeLastMessageReceived = System.currentTimeMillis();
     }
     
+    /**
+     * Checks timeout and sends a blank message if too long a time has passed since the last one
+     * Will cause a disconnect if 
+     * @return The current connection state
+     */
     public ListenerStatus getListenerStatus() {
+        if(System.currentTimeMillis() >= this.timeLastMessageReceived + timeout) {
+            return this.disconnect();
+        } else {
+            if(System.currentTimeMillis() >= this.timeLastMessageSent + timeout - 1000) {
+                STSdown.Builder stsDown = STSdown.newBuilder();
+                sendMessageToStarship(stsDown.build());
+            }
+        }
         return this.listenerStatus;
-    }
-    
-    public boolean hasTimedOut() {
-        return System.currentTimeMillis() >= this.timeLastMessageReceived + timeout;
     }
     
     private boolean setupStreams() {
