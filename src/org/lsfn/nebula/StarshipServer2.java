@@ -14,7 +14,6 @@ import java.util.UUID;
 
 import org.lsfn.nebula.STS.STSup.Join.JoinType;
 import org.lsfn.nebula.STS.*;
-import org.lsfn.nebula.StarshipServer.ServerStatus;
 
 /**
  * This class acts as a server for the Starship clients to the Nebula.
@@ -27,7 +26,6 @@ import org.lsfn.nebula.StarshipServer.ServerStatus;
  */
 public class StarshipServer2 extends Thread {
 
-    private static final Integer defaultPort = 39461;
     private static final Integer tickInterval = 50;
     
     private ServerSocket starshipServer;
@@ -39,14 +37,25 @@ public class StarshipServer2 extends Thread {
     private boolean allowingNewClients;
     
     public StarshipServer2() throws IOException {
-        this.starshipServer = new ServerSocket(defaultPort);
-        this.starshipServer.setSoTimeout(tickInterval);
+        this.starshipServer = null;
         this.unassociatedListeners = new ArrayList<StarshipListener2>();
         this.unassociatedIDs = new ArrayList<UUID>();
         this.clients = new HashMap<UUID, StarshipListener2>();
         this.buffers = new HashMap<UUID, List<STSup>>();
-        this.open = true;
+        this.open = false;
         this.allowingNewClients = true;
+    }
+    
+    public boolean listen(Integer port) {
+        try {
+            this.starshipServer = new ServerSocket(port);
+            this.starshipServer.setSoTimeout(tickInterval);
+            this.open = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.open = false;
+        }
+        return this.open;
     }
     
     public boolean isAllowingNewClients() {

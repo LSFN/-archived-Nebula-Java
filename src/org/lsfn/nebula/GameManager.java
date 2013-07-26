@@ -17,6 +17,7 @@ import org.lsfn.nebula.STS.STSup;
  */
 public class GameManager extends Thread {
 
+    private static final Integer defaultPort = 39461;
     private static final Integer pollWait = 50;
     
     private StarshipManager starshipManager;

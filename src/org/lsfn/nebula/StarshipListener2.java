@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lsfn.nebula.STS.*;
-import org.lsfn.nebula.StarshipListener.ListenerStatus;
+import org.lsfn.nebula.STS.STSdown;
+import org.lsfn.nebula.STS.STSup;
 
 /**
  * The idea here is that if the connection fails for some reason,
@@ -27,6 +27,7 @@ public class StarshipListener2 {
     private BufferedOutputStream starshipOutput;
     private Long timeLastMessageReceived;
     private boolean connected;
+    private STSdown pongResponse;
     
     /**
      * If this throws and error, the incoming connection should be discarded immediately.
@@ -39,6 +40,7 @@ public class StarshipListener2 {
         this.starshipOutput = new BufferedOutputStream(this.starshipSocket.getOutputStream());
         this.timeLastMessageReceived = System.currentTimeMillis();
         this.connected = true;
+        this.pongResponse = STSdown.newBuilder().setPong(STSdown.Pong.newBuilder()).build();
     }
     
     /**
@@ -87,6 +89,9 @@ public class StarshipListener2 {
                 while(this.starshipInput.available() > 0) {
                     this.timeLastMessageReceived = System.currentTimeMillis();
                     STSup upMessage = STSup.parseDelimitedFrom(this.starshipInput);
+                    if(upMessage.hasPing()) {
+                        sendMessageToStarship(pongResponse);
+                    }
                     upMessages.add(upMessage);
                 }
             } catch (IOException e) {
@@ -96,4 +101,5 @@ public class StarshipListener2 {
         }
         return upMessages;
     }
+    
 }
