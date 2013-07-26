@@ -2,6 +2,9 @@ package org.lsfn.nebula;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,6 +14,7 @@ import java.util.UUID;
 
 import org.lsfn.nebula.STS.STSup.Join.JoinType;
 import org.lsfn.nebula.STS.*;
+import org.lsfn.nebula.StarshipServer.ServerStatus;
 
 /**
  * This class acts as a server for the Starship clients to the Nebula.
@@ -30,14 +34,17 @@ public class StarshipServer2 extends Thread {
     private List<StarshipListener2> unassociatedListeners;
     private List<UUID> unassociatedIDs;
     private Map<UUID, StarshipListener2> clients;
+    private Map<UUID, List<STSup>> buffers;
     private boolean open;
     private boolean allowingNewClients;
     
     public StarshipServer2() throws IOException {
         this.starshipServer = new ServerSocket(defaultPort);
+        this.starshipServer.setSoTimeout(tickInterval);
         this.unassociatedListeners = new ArrayList<StarshipListener2>();
         this.unassociatedIDs = new ArrayList<UUID>();
         this.clients = new HashMap<UUID, StarshipListener2>();
+        this.buffers = new HashMap<UUID, List<STSup>>();
         this.open = true;
         this.allowingNewClients = true;
     }
@@ -54,13 +61,27 @@ public class StarshipServer2 extends Thread {
         return this.open;
     }
     
+    public synchronized Map<UUID, List<STSup>> receiveMessagesFromStarships() {
+        Map<UUID, List<STSup>> result = buffers;
+        buffers = new HashMap<UUID, List<STSup>>();
+        return result;
+    }
+    
+    public synchronized void addMessageToBuffers(UUID clientID, STSup message) {
+        if(!buffers.containsKey(clientID)) {
+            buffers.put(clientID, new ArrayList<STSup>());
+        }
+        buffers.get(clientID).add(message);
+    }
+    
     /**
      * Processes joining info from Starships to see if they join the game.
      * Puts the listener with ID into clients map if they do join.
      * Disconnects the listener if they fail to do so.
      * @param join The join message
+     * @return true if the listener joined as a client successfully
      */
-    private void processJoin(StarshipListener2 listener, STSup.Join join) {
+    private UUID processJoin(StarshipListener2 listener, STSup.Join join) {
         STSdown.Builder stsDown = STSdown.newBuilder();
         STSdown.Join.Builder stsDownJoin = STSdown.Join.newBuilder();
         
@@ -72,6 +93,7 @@ public class StarshipServer2 extends Thread {
                 stsDownJoin.setRejoinToken(newID.toString());          
                 stsDown.setJoin(stsDownJoin);
                 listener.sendMessageToStarship(stsDown.build());
+                return newID;
             } else {
                 stsDownJoin.setResponse(STSdown.Join.Response.JOIN_REJECTED);
                 stsDown.setJoin(stsDownJoin);
@@ -87,6 +109,7 @@ public class StarshipServer2 extends Thread {
                     stsDownJoin.setResponse(STSdown.Join.Response.REJOIN_ACCEPTED);
                     stsDown.setJoin(stsDownJoin);
                     listener.sendMessageToStarship(stsDown.build());
+                    return rejoinToken;
                 } else {
                     stsDownJoin.setResponse(STSdown.Join.Response.JOIN_REJECTED);
                     stsDown.setJoin(stsDownJoin);
@@ -95,7 +118,7 @@ public class StarshipServer2 extends Thread {
                 }
             }
         }
-        
+        return null;
     }
     
     @Override
@@ -109,11 +132,18 @@ public class StarshipServer2 extends Thread {
                 StarshipListener2 listener = listenerIterator.next();
                 if(listener.isConnected()) {
                     List<STSup> messages = listener.receiveMessagesFromStarship();
+                    UUID clientID = null;
                     for(STSup message : messages) {
                         // TODO failure to join timeouts
-                        if(message.hasJoin()) {
-                            this.processJoin(listener, message.getJoin());
+                        if(clientID != null) {
+                            this.addMessageToBuffers(clientID, message);
+                        } else if(message.hasJoin()) {
                             listenerIterator.remove();
+                            // If join succeeds, submit this message to the corresponding buffer
+                            clientID = this.processJoin(listener, message.getJoin());
+                            if(clientID != null) {
+                                this.addMessageToBuffers(clientID, message);
+                            }
                         }
                     }
                 } else {
@@ -121,8 +151,46 @@ public class StarshipServer2 extends Thread {
                 }
             }
             // Process messages from listeners associated to IDs
-            
+            Iterator<UUID> clientIterator = this.clients.keySet().iterator();
+            while(clientIterator.hasNext()) {
+                UUID clientID = clientIterator.next();
+                StarshipListener2 listener = this.clients.get(clientID);
+                if(listener.isConnected()) {
+                    List<STSup> messages = listener.receiveMessagesFromStarship();
+                    for(STSup message : messages) {
+                        this.addMessageToBuffers(clientID, message);
+                    }
+                } else {
+                    // The client has disconnected
+                    clientIterator.remove();
+                    this.unassociatedIDs.add(clientID);
+                }
+            }
             // Accept new connections
+            Socket starshipSocket = null;
+            try {
+                starshipSocket = this.starshipServer.accept();
+            } catch (SocketTimeoutException e) {
+                // Timeouts are normal, do nothing
+            } catch (SocketException e) {
+                // If the server is closed, it closed because we asked it to.
+                if(this.open) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                // Shutdown if anything else goes wrong
+                this.open = false;
+            }
+            
+            if(starshipSocket != null) {
+                try {
+                    StarshipListener2 listener = new StarshipListener2(starshipSocket);
+                    this.unassociatedListeners.add(listener);
+                } catch (IOException e) {
+                    // Listener creation failed
+                    // Nothing to do here
+                }
+            }
         }
     }
 }
