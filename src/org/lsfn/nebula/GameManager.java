@@ -20,7 +20,7 @@ public class GameManager extends Thread {
     private static final Integer defaultPort = 39461;
     private static final Integer pollWait = 50;
     
-    private StarshipManager starshipManager;
+    private StarshipServer starshipServer;
     private LobbyManager lobbyManager;
     private ShipManager shipManager;
     private AsteroidManager asteroidManager;
@@ -31,7 +31,7 @@ public class GameManager extends Thread {
     
     public GameManager() {
         // Setup the Starship management classes
-        this.starshipManager = new StarshipManager();
+        this.starshipServer = new StarshipServer();
         this.lobbyManager = new LobbyManager();
         
         // Setup the physical world
@@ -55,7 +55,7 @@ public class GameManager extends Thread {
     }
 
     private void processInput() {
-        Map<UUID, List<STSup>> messages = this.starshipManager.getInput();
+        Map<UUID, List<STSup>> messages = this.starshipServer.receiveMessagesFromStarships();
         for(UUID id : messages.keySet()) {
             for(STSup upMessage : messages.get(id)) {
                 if(upMessage.hasRcon()) {
@@ -63,7 +63,7 @@ public class GameManager extends Thread {
                 }
                 if(upMessage.hasLobby()) {
                     if(!this.gameInProgress) {
-                        this.lobbyManager.handleNewStarships(this.starshipManager.getNewStarships());
+                        this.lobbyManager.handleNewStarships(this.starshipServer.getNewStarships());
                         this.lobbyManager.processInput(id, upMessage.getLobby());
                     }
                 }
@@ -106,7 +106,7 @@ public class GameManager extends Thread {
             for(UUID id : this.lobbyManager.getIDs()) {
                 STSdown.Builder builder = STSdown.newBuilder();
                 builder.setVisualSensors(this.shipManager.generateOutput(id));
-                this.starshipManager.sendMessageToStarship(id, builder.build());
+                this.starshipServer.sendMessageToStarship(id, builder.build());
             }
         } else {
             // Lobby
@@ -116,7 +116,7 @@ public class GameManager extends Thread {
                 somethingToSend |= this.lobbyManager.generateOutput(stsDown, id);
                 // This if statement will get additional clauses so it won't be redundant.
                 if(somethingToSend) {
-                    this.starshipManager.sendMessageToStarship(id, stsDown.build());
+                    this.starshipServer.sendMessageToStarship(id, stsDown.build());
                 }
             }
         }

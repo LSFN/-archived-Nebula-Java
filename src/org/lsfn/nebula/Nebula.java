@@ -17,7 +17,8 @@ public class Nebula {
     
     private void printHelp() {
         System.out.println("Nebula commands:");
-        System.out.println("\thelp   : print this help text.");
+        System.out.println("\thelp   : Print this help text.");
+        System.out.println("\texit   : End the program.");
     }
     
     private void processCommand(String commandStr) {
@@ -25,6 +26,8 @@ public class Nebula {
          
         if(commandParts[0].equals("help")) {
             printHelp();
+        } else if(commandParts[0].equals("exit")) {
+            this.keepGoing = false;
         } else {
             System.out.println("You're spouting gibberish. Please try English.");
         }

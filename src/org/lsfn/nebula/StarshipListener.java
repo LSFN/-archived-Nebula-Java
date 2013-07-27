@@ -11,117 +11,95 @@ import org.lsfn.nebula.STS.STSdown;
 import org.lsfn.nebula.STS.STSup;
 
 /**
- * Listens to a single socket.
- * Designed to be discarded when disconnected.
+ * The idea here is that if the connection fails for some reason,
+ * the send / receive methods will not produce exceptions.
+ * If a disconnection occurs, the enclosing class should check for this
+ * by periodically querying getConnectionStatus().
  * @author Lukeus_Maximus
  *
  */
 public class StarshipListener {
 
-    private static final long timeout = 5000; 
+    private static final long timeout = 5000;
     
     private Socket starshipSocket;
     private BufferedInputStream starshipInput;
     private BufferedOutputStream starshipOutput;
-    private long timeLastMessageSent;
-    private long timeLastMessageReceived;
+    private Long timeLastMessageReceived;
+    private boolean connected;
+    private STSdown pongResponse;
     
-    public enum ListenerStatus {
-        NOT_SETUP,
-        CONNECTED,
-        DISCONNECTED
-    }
-    private ListenerStatus listenerStatus;
-    
-    public StarshipListener(Socket consoleSocket) {
-        this.starshipSocket = consoleSocket;
-        this.starshipInput = null;
-        this.starshipOutput = null;
-        this.listenerStatus = ListenerStatus.NOT_SETUP;
-        this.timeLastMessageSent = System.currentTimeMillis();
+    /**
+     * If this throws and error, the incoming connection should be discarded immediately.
+     * @param starshipSocket
+     * @throws IOException
+     */
+    public StarshipListener(Socket starshipSocket) throws IOException {
+        this.starshipSocket = starshipSocket;
+        this.starshipInput = new BufferedInputStream(this.starshipSocket.getInputStream());
+        this.starshipOutput = new BufferedOutputStream(this.starshipSocket.getOutputStream());
         this.timeLastMessageReceived = System.currentTimeMillis();
+        this.connected = true;
+        this.pongResponse = STSdown.newBuilder().setPong(STSdown.Pong.newBuilder()).build();
     }
     
     /**
-     * Checks timeout and sends a blank message if too long a time has passed since the last one
-     * Will cause a disconnect if 
-     * @return The current connection state
+     * It is expected that this is called periodically by enclosing classes
+     * to check that this listener is still useful.
+     * @return true if still connected to client, false otherwise 
      */
-    public ListenerStatus getListenerStatus() {
+    public boolean isConnected() {
+        // Check for a timeout
         if(System.currentTimeMillis() >= this.timeLastMessageReceived + timeout) {
-            return this.disconnect();
-        } else {
-            if(System.currentTimeMillis() >= this.timeLastMessageSent + timeout - 1000) {
-                STSdown.Builder stsDown = STSdown.newBuilder();
-                sendMessageToStarship(stsDown.build());
-            }
+            disconnect();
         }
-        return this.listenerStatus;
+        return connected;
     }
     
-    private boolean setupStreams() {
-        try {
-            this.starshipInput = new BufferedInputStream(this.starshipSocket.getInputStream());
-            this.starshipOutput = new BufferedOutputStream(this.starshipSocket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-    
-    public ListenerStatus disconnect() {
+    /**
+     * Disconnects the socket that this listener was listening to.
+     */
+    public void disconnect() {
         try {
             this.starshipSocket.close();
         } catch (IOException e) {
-            // We simply don't care if this fails.
-            // This assumes nothing bad comes of a close() failing.
-            e.printStackTrace();
+            // We don't care
+            // This object will soon be garbage collected anyway
         }
-        this.listenerStatus = ListenerStatus.DISCONNECTED;
-        return this.listenerStatus;
+        this.connected = false;
     }
     
-    public ListenerStatus sendMessageToStarship(STSdown downMessage) {
-        if(this.listenerStatus == ListenerStatus.NOT_SETUP) {
-            if(!setupStreams()) {
-                this.listenerStatus = ListenerStatus.DISCONNECTED;
-            }
-        }
-        if(this.listenerStatus == ListenerStatus.CONNECTED) {
+    public void sendMessageToStarship(STSdown downMessage) {
+        if(this.connected) {
             try {
                 downMessage.writeDelimitedTo(this.starshipOutput);
                 this.starshipOutput.flush();
                 System.out.println(downMessage);
             } catch (IOException e) {
                 e.printStackTrace();
-                this.listenerStatus = ListenerStatus.DISCONNECTED;
+                this.connected = false;
             }
         }
-        return this.listenerStatus;
     }
     
     public List<STSup> receiveMessagesFromStarship() {
         List<STSup> upMessages = new ArrayList<STSup>();
-        if(this.listenerStatus == ListenerStatus.NOT_SETUP) {
-            if(setupStreams()) {
-                this.listenerStatus = ListenerStatus.CONNECTED;
-            } else {
-                this.listenerStatus = ListenerStatus.DISCONNECTED;
-            }
-        }
-        if(this.listenerStatus == ListenerStatus.CONNECTED) {
+        if(this.connected) {
             try {
                 while(this.starshipInput.available() > 0) {
                     this.timeLastMessageReceived = System.currentTimeMillis();
                     STSup upMessage = STSup.parseDelimitedFrom(this.starshipInput);
+                    if(upMessage.hasPing()) {
+                        sendMessageToStarship(pongResponse);
+                    }
                     upMessages.add(upMessage);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                this.listenerStatus = ListenerStatus.DISCONNECTED;
+                this.connected = false;
             }
         }
         return upMessages;
     }
+    
 }
