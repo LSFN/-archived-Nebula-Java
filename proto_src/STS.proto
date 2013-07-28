@@ -2,9 +2,6 @@ option java_package = "org.lsfn.nebula";
 option java_outer_classname = "STS";
 
 message STSup {
-    message Ping {
-    }
-
     message RCon {
         optional string command = 1;
     }
@@ -30,12 +27,12 @@ message STSup {
         optional uint32 port = 3;
     }
 
-	message Lobby {
-		optional bool readyState = 1;
-		optional string shipName = 2;
-	}
-	
-	message Piloting {
+    message Lobby {
+        optional bool readyState = 1;
+        optional string shipName = 2;
+    }
+    
+    message Piloting {
         optional bool turnAnti = 1;
         optional bool turnClock = 2;
         optional bool thrustLeft = 3;
@@ -44,18 +41,14 @@ message STSup {
         optional bool thrustBackward = 6;
     }
     
-    optional Ping ping = 1;
-	optional RCon rcon = 2;
-	optional Join join = 3;
-	optional Connection connection = 4;
-	optional Lobby lobby = 5;
-	optional Piloting piloting = 6;
+    optional RCon rcon = 1;
+    optional Join join = 2;
+    optional Connection connection = 3;
+    optional Lobby lobby = 4;
+    optional Piloting piloting = 5;
 }
 
 message STSdown {
-    message Pong {
-    }
-
     message Join {
         enum Response {
             JOIN_ACCEPTED = 0;
@@ -71,14 +64,14 @@ message STSdown {
         optional bool connected = 1;
     }
 
-	message Lobby {
-	   optional bool readyState = 1;
-	   optional string shipName = 2;
-	   repeated string shipsInGame = 3;
-	   optional bool gameStarted = 4;
-	}
-	
-	message VisualSensors {
+    message Lobby {
+       optional bool readyState = 1;
+       optional string shipName = 2;
+       repeated string shipsInGame = 3;
+       optional bool gameStarted = 4;
+    }
+    
+    message VisualSensors {
         message SpaceObject {
             enum Type {
                 SHIP = 0;
@@ -99,9 +92,8 @@ message STSdown {
         repeated SpaceObject spaceObjects = 1;
     }
     
-    optional Pong pong = 1;
-    optional Join join = 2;
-    optional Connection connection = 3;
-    optional Lobby lobby = 4;
-    optional VisualSensors visualSensors = 5;
+    optional Join join = 1;
+    optional Connection connection = 2;
+    optional Lobby lobby = 3;
+    optional VisualSensors visualSensors = 4;
 }

@@ -96,6 +96,7 @@ public class GameManager extends Thread {
                 this.asteroidManager.addAsteroid(new Vector2(0.0, 20.0));
                 // Remind this class that the game has actually started
                 this.gameInProgress = true;
+                this.starshipServer.setAllowingNewStarships(false);
                 System.out.println("The game has begun.");
             }
         }

@@ -21,7 +21,7 @@ import org.lsfn.nebula.STS.STSup;
 public class StarshipListener {
 
     private static final long timeout = 5000;
-    private static final STSdown pongResponse = STSdown.newBuilder().setPong(STSdown.Pong.newBuilder()).build();
+    private static final STSdown pongMessage = STSdown.newBuilder().build();
     
     private Socket starshipSocket;
     private BufferedInputStream starshipInput;
@@ -73,7 +73,6 @@ public class StarshipListener {
             try {
                 downMessage.writeDelimitedTo(this.starshipOutput);
                 this.starshipOutput.flush();
-                System.out.println(downMessage);
             } catch (IOException e) {
                 e.printStackTrace();
                 this.connected = false;
@@ -88,10 +87,12 @@ public class StarshipListener {
                 while(this.starshipInput.available() > 0) {
                     this.timeLastMessageReceived = System.currentTimeMillis();
                     STSup upMessage = STSup.parseDelimitedFrom(this.starshipInput);
-                    if(upMessage.hasPing()) {
-                        sendMessageToStarship(pongResponse);
-                    }
-                    upMessages.add(upMessage);
+                    // Messages of size 0 are keep alives
+                    if(upMessage.getSerializedSize() == 0) {
+                        sendMessageToStarship(pongMessage);
+                    } else {
+                        upMessages.add(upMessage);
+                    } 
                 }
             } catch (IOException e) {
                 e.printStackTrace();

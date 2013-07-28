@@ -2,6 +2,7 @@ package org.lsfn.nebula;
 
 import java.util.UUID;
 
+
 public class LobbyInfo {
 
     private UUID id;
