@@ -53,6 +53,7 @@ public class StarshipServer extends Thread {
             this.starshipServer = new ServerSocket(port);
             this.starshipServer.setSoTimeout(tickInterval);
             this.open = true;
+            System.out.println("Listening on port " + port);
         } catch (IOException e) {
             e.printStackTrace();
             this.open = false;
@@ -79,7 +80,10 @@ public class StarshipServer extends Thread {
     }
     
     public void sendMessageToStarship(UUID id, STSdown downMessage) {
-        this.clients.get(id).sendMessageToStarship(downMessage);
+        StarshipListener listener = this.clients.get(id);
+        if(listener != null) {
+            listener.sendMessageToStarship(downMessage);
+        }
     }
     
     public synchronized Map<UUID, List<STSup>> receiveMessagesFromStarships() {
@@ -114,9 +118,11 @@ public class StarshipServer extends Thread {
                 this.clients.put(newID, listener);
                 this.newStarships.add(newID);
                 result = newID;
-                stsDownJoin.setRejoinToken(newID.toString());          
+                stsDownJoin.setRejoinToken(newID.toString());
+                System.out.println("New Starship joined; assigned UUID " + newID);
             } else {
                 stsDownJoin.setResponse(STSdown.Join.Response.JOIN_REJECTED);
+                System.out.println("Starship join request rejected; not allowing new clients at this time");
             }
         } else if(join.getType() == JoinType.REJOIN) {
             if(join.hasRejoinToken()) {
@@ -126,8 +132,10 @@ public class StarshipServer extends Thread {
                     this.clients.put(rejoinToken, listener);
                     result = rejoinToken;
                     stsDownJoin.setResponse(STSdown.Join.Response.REJOIN_ACCEPTED);
+                    System.out.println("Starship "+ rejoinToken + " rejoined successfully");
                 } else {
                     stsDownJoin.setResponse(STSdown.Join.Response.JOIN_REJECTED);
+                    System.out.println("Starship rejoin request rejected; request was invalid");
                 }
             }
         }

@@ -125,6 +125,9 @@ public class GameManager extends Thread {
     
     @Override
     public void run() {
+        this.starshipServer.listen(defaultPort);
+        this.starshipServer.start();
+        
         // This is the main game loop!
         // It runs even when a game is not in progress, i.e. in the lobby
         this.running = true;

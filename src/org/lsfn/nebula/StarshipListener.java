@@ -21,13 +21,13 @@ import org.lsfn.nebula.STS.STSup;
 public class StarshipListener {
 
     private static final long timeout = 5000;
+    private static final STSdown pongResponse = STSdown.newBuilder().setPong(STSdown.Pong.newBuilder()).build();
     
     private Socket starshipSocket;
     private BufferedInputStream starshipInput;
     private BufferedOutputStream starshipOutput;
     private Long timeLastMessageReceived;
     private boolean connected;
-    private STSdown pongResponse;
     
     /**
      * If this throws and error, the incoming connection should be discarded immediately.
@@ -40,7 +40,6 @@ public class StarshipListener {
         this.starshipOutput = new BufferedOutputStream(this.starshipSocket.getOutputStream());
         this.timeLastMessageReceived = System.currentTimeMillis();
         this.connected = true;
-        this.pongResponse = STSdown.newBuilder().setPong(STSdown.Pong.newBuilder()).build();
     }
     
     /**
@@ -50,7 +49,7 @@ public class StarshipListener {
      */
     public boolean isConnected() {
         // Check for a timeout
-        if(System.currentTimeMillis() >= this.timeLastMessageReceived + timeout) {
+        if(this.connected && System.currentTimeMillis() >= this.timeLastMessageReceived + timeout) {
             disconnect();
         }
         return connected;
