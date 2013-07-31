@@ -214,6 +214,7 @@ public class StarshipServer extends Thread {
             if(starshipSocket != null) {
                 try {
                     StarshipListener listener = new StarshipListener(starshipSocket);
+                    System.out.println("Starship client connected.");
                     this.unassociatedListeners.add(listener);
                 } catch (IOException e) {
                     // Listener creation failed
