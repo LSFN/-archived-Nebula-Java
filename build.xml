@@ -40,7 +40,7 @@
         <jar jarfile="${jar_name}.jar" basedir="${build}" includes="org/lsfn/nebula/**">
         	<manifest>
         	    <attribute name="Built-By" value="LSFN's disgruntled ANT instance."/>
-        	  	<attribute name="Main-Class" value="org.lsfn.nrbula.Nebula"/>
+        	  	<attribute name="Main-Class" value="org.lsfn.nebula.Nebula"/>
                 <!--attribute name="Class-path" value="lib/protobuf-java-2.5.0.jar"/-->
     	    </manifest>
         	<zipfileset src="${protobuflib}"/>
