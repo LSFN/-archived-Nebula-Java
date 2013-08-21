@@ -1,0 +1,50 @@
+<project name="Nebula" default="jar" basedir=".">
+    <description>
+        Builds the Console PC application
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+	<property name="proto_src" location="proto_src"/>
+    <property name="build" location="build"/>
+	<property name="lib" location="lib"/>
+	<property name="jar_name" location="nebula"/>
+	<property name="protobuflib" location="lib/protobuf-java-2.5.0.jar"/>
+	<property name="dyn4jlib" location="lib/dyn4j-v3.1.4.jar"/>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name = "protobuf" depends="init">
+    	<exec executable="protoc" failonerror="true">
+    		<arg value="-I." />
+    		<arg value="--java_out=${src}/" />
+    		<arg value="proto_src/STS.proto" />
+    	</exec>
+	</target>
+	
+    <target name="java" depends="protobuf">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}">
+        	<classpath>
+        		<fileset dir="lib"/>
+    		</classpath>
+        </javac>
+    </target>
+
+    <target name="jar" depends="java">
+        <!-- Put everything in ${build} and ${lib} into the console-pc.jar file -->
+        <jar jarfile="${jar_name}.jar" basedir="${build}" includes="org/lsfn/nebula/**">
+        	<manifest>
+        	    <attribute name="Built-By" value="LSFN's disgruntled ANT instance."/>
+        	  	<attribute name="Main-Class" value="org.lsfn.nrbula.Nebula"/>
+                <!--attribute name="Class-path" value="lib/protobuf-java-2.5.0.jar"/-->
+    	    </manifest>
+        	<zipfileset src="${protobuflib}"/>
+        	<zipfileset src="${dyn4jlib}"/>
+    	</jar>
+    </target>
+</project>

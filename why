@@ -1,2 +1,0 @@
-scons
-jar cfm nebula.jar Manifest.txt -C build/ org/lsfn/nebula/ lib

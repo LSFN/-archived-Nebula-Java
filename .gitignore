@@ -8,3 +8,7 @@
 # Scons build database #
 *sconsign*
 *.pyc
+
+# Build directory #
+/build
+/src/org/lsfn/nebula/STS.java
