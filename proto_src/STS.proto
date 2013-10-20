@@ -31,6 +31,11 @@ message STSup {
         optional bool readyState = 1;
         optional string shipName = 2;
     }
+
+    message Subscribe {
+        required string nodeName = 1;
+        repeated Subscribe children = 2;
+    }
     
     message Reactor {
         optional double reactantIntroduction = 1;
@@ -61,10 +66,11 @@ message STSup {
     optional JoinRequest joinRequest = 2;
     optional Connection connection = 3;
     optional Lobby lobby = 4;
-    optional Reactor reactor = 5;
-    optional PowerDistribution powerDistribution = 6;
-    optional Engines engines = 7;
-    optional Thrusters thrusters = 8;
+    optional Subscribe subscribe = 5;
+    optional Reactor reactor = 6;
+    optional PowerDistribution powerDistribution = 7;
+    optional Engines engines = 8;
+    optional Thrusters thrusters = 9;
 }
 
 message STSdown {
