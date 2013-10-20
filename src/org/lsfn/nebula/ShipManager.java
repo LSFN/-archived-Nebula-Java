@@ -36,8 +36,8 @@ public class ShipManager {
         this.ships.put(id, ship);
     }
     
-    public void processInput(UUID id, STSup.Piloting piloting) {
-        this.ships.get(id).processInput(piloting);
+    public void processInput(UUID id, STSup message) {
+        this.ships.get(id).processInput(message);
     }
     
     public void tick() {
@@ -46,7 +46,7 @@ public class ShipManager {
         }
     }
     
-    public STSdown.VisualSensors generateOutput(UUID id) {
+    public STSdown generateOutput(UUID id) {
         Ship ship = this.ships.get(id);
         List<Ship> ships = new ArrayList<Ship>();
         for(UUID id2 : this.ships.keySet()) {

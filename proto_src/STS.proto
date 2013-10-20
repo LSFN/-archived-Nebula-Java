@@ -6,7 +6,7 @@ message STSup {
         optional string command = 1;
     }
 
-    message Join {
+    message JoinRequest {
         enum JoinType {
             JOIN = 0;
             REJOIN = 1;
@@ -32,34 +32,58 @@ message STSup {
         optional string shipName = 2;
     }
     
-    message Piloting {
-        optional bool turnAnti = 1;
-        optional bool turnClock = 2;
-        optional bool thrustLeft = 3;
-        optional bool thrustRight = 4;
-        optional bool thrustForward = 5;
-        optional bool thrustBackward = 6;
+    message Reactor {
+        optional double reactantIntroduction = 1;
+        optional double coolantIntroduction = 2;
     }
-    
+
+    message PowerDistribution {
+        message SystemState {
+            required uint32 systemID = 1;
+            required bool systemState = 2;
+        }
+        repeated SystemState systemStates = 1;
+    }
+
+    message Engines {
+        optional double leftEngineThrottle = 1;
+        optional double rightEngineThrottle = 2;
+    }
+
+    message Thrusters {
+        optional double forwardLeft = 1;
+        optional double forwardRight = 2;
+        optional double rearLeft = 3;
+        optional double rearRight = 4;
+    }
+
     optional RCon rcon = 1;
-    optional Join join = 2;
+    optional JoinRequest joinRequest = 2;
     optional Connection connection = 3;
     optional Lobby lobby = 4;
-    optional Piloting piloting = 5;
+    optional Reactor reactor = 5;
+    optional PowerDistribution powerDistribution = 6;
+    optional Engines engines = 7;
+    optional Thrusters thrusters = 8;
 }
 
 message STSdown {
-    message Join {
-        enum Response {
+    message JoinInfo {
+        required bool allowJoin = 1;
+        optional string gameIDtoken = 2;
+    }
+
+    message JoinResponse {
+        enum Type {
             JOIN_ACCEPTED = 0;
             REJOIN_ACCEPTED = 1;
             JOIN_REJECTED = 2;
         }
-        
-        optional Response response = 1;
+
+        required Type type = 1;
         optional string rejoinToken = 2;
     }
-
+        
     message Connection {
         optional bool connected = 1;
     }
@@ -92,8 +116,31 @@ message STSdown {
         repeated SpaceObject spaceObjects = 1;
     }
     
-    optional Join join = 1;
-    optional Connection connection = 2;
-    optional Lobby lobby = 3;
-    optional VisualSensors visualSensors = 4;
+    message Reactor {
+        optional double powerOutput = 1;
+        optional double heatLevel = 2;
+    }
+
+    message PowerDistribution {
+        message SystemDescription {
+            required uint32 systemID = 1;
+            required string systemName = 2;
+        }
+        message SystemState {
+            required uint32 systemID = 1;
+            required bool systemState = 2;
+            required double powerLevel = 3;
+        }
+
+        repeated SystemDescription systemDescriptions = 1;
+        repeated SystemState systemStates = 2;
+    }
+
+    optional Connection connection = 1;
+    optional JoinInfo joinInfo = 2;
+    optional JoinResponse joinResponse = 3;
+    optional Lobby lobby = 4;
+    optional VisualSensors visualSensors = 5;
+    optional Reactor reactor = 6;
+    optional PowerDistribution powerDistribution = 7;
 }

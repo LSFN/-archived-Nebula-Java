@@ -67,9 +67,9 @@ public class GameManager extends Thread {
                         this.lobbyManager.processInput(id, upMessage.getLobby());
                     }
                 }
-                if(upMessage.hasPiloting()) {
+                if(upMessage.hasReactor() || upMessage.hasEngines() || upMessage.hasPowerDistribution() || upMessage.hasThrusters()) {
                     if(this.gameInProgress) {
-                        this.shipManager.processInput(id, upMessage.getPiloting());
+                        this.shipManager.processInput(id, upMessage);
                     }
                 }
             }
@@ -105,9 +105,7 @@ public class GameManager extends Thread {
     private void dispatchOutput() {
         if(gameInProgress) {
             for(UUID id : this.lobbyManager.getIDs()) {
-                STSdown.Builder builder = STSdown.newBuilder();
-                builder.setVisualSensors(this.shipManager.generateOutput(id));
-                this.starshipServer.sendMessageToStarship(id, builder.build());
+                this.starshipServer.sendMessageToStarship(id, this.shipManager.generateOutput(id));
             }
         } else {
             // Lobby
